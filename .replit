@@ -1,0 +1,4 @@
+run = "csc ./Projeto1/main.cs ./Projeto1/Usuario.cs ./Projeto1/acao.cs -out:Main.exe; mono Main.exe"
+
+[nix]
+channel = "stable-22_11"
