@@ -33,7 +33,7 @@ class Program{
     Console.Write("Informe o local onde a ação acontecerá:");
     string local = Console.ReadLine();
     Console.Write("Informe a data em que a ação acontecerá:");
-    DateTime data = DateTime.Parse(Console.ReadLine());
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
     Acao obj = new Acao(id,data,nome,local);
     Sistema.CadastroAcao(obj);
     Console.WriteLine("Ação inserida com sucesso");
