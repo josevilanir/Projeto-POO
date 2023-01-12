@@ -17,5 +17,22 @@ class Sistema{
     return aux;
     
   }
+  //metodo para retornar um id que espicificará a especie a ser atualizada
+  public static Acao Acaolistar(int id){
+    foreach (Acao obj in Acoes)
+      if (obj != null && obj.Getid() == id) return obj;
+    return null;
+    
+  }
   
+  
+  public static void AcaoAtualizar(Acao obj){
+    //localizara a acao com base no id especificado no metodo anterior.
+    Acao aux = Acaolistar(obj.Getid());
+    if (aux != null)
+    aux.SetData(obj.GetData());
+    aux.SetNome(obj.GetNome());
+    aux.SetEnder(obj.GetLocal());
+    
+  }
 }

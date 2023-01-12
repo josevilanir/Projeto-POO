@@ -8,6 +8,7 @@ class Program{
       switch(op){
       case 1 : CadastroAcao(); break;
       case 2 : ListarAcoes(); break;
+      case 3 : AtualizarAcao(); break;
       }
     } while (op != 0);
     
@@ -17,6 +18,7 @@ class Program{
   Console.WriteLine("---------- Escolha Uma opção! ----------");
   Console.WriteLine("01 - Cadastrar uma Ação");
   Console.WriteLine("02 - Listar Ações");
+  Console.WriteLine("03 - Atualizar uma Ação");
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -39,6 +41,26 @@ class Program{
     Console.WriteLine("Ação inserida com sucesso");
   }
   public static void ListarAcoes(){
-    
+    Console.WriteLine("--------Listar as ações cadastradas---------");
+    foreach (Acao obj in Sistema.ListarAcoes())
+      Console.WriteLine(obj);
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
   }
-}
+
+   public static void AtualizarAcao(){
+    Console.WriteLine("---------- Atualizar uma ação ----------");
+    Console.Write("Informe o Id da ação a ser atualizada: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.Write("Informe um novo nome para a ação: ");
+    string nome = Console.ReadLine();
+    Console.Write("Informe um novo local onde a ação acontecerá:");
+    string local = Console.ReadLine();
+    Console.Write("Informe a nova data em que a ação acontecerá:");
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
+    Acao obj = new Acao(id,data,nome,local);
+    Sistema.AcaoAtualizar(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Ação Atualizada com sucesso--------");
+   }
+  }
