@@ -35,4 +35,19 @@ class Sistema{
     aux.SetEnder(obj.GetLocal());
     
   }
+
+  public static void AcaoExcluir(Acao obj){
+    int aux = Acaoid(obj.GetId());
+    if (aux != -1){
+      for (int i = aux;i<nAcoes - 1; i++)
+      Acoes[i] = Acoes[i + 1];
+      nAcao--;
+    }
+  }
+  pubic static void Acaoid(int id){
+    for( int i =0; i < nAcao; i++ ){
+    Acao obj = Acoes[i];
+    if (obj.GetId == id) return i; }
+    Return -1
+    }
 }

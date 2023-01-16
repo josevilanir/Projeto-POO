@@ -38,7 +38,7 @@ class Program{
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
     Acao obj = new Acao(id,data,nome,local);
     Sistema.CadastroAcao(obj);
-    Console.WriteLine("Ação inserida com sucesso");
+    Console.WriteLine("--------Ação inserida com sucesso---------");
   }
   public static void ListarAcoes(){
     Console.WriteLine("--------Listar as ações cadastradas---------");
