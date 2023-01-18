@@ -1,14 +1,22 @@
 using System;
+using System.Globalization;
 class Program{
   public static void Main(){
     Console.WriteLine("Bem vindo ao Help.io");
     int op = 0;
     do {
-      op = Menu();
-      switch(op){
-      case 1 : CadastroAcao(); break;
-      case 2 : ListarAcoes(); break;
-      case 3 : AtualizarAcao(); break;
+      try{
+        op = Menu();
+        switch(op){
+        case 1 : CadastroAcao(); break;
+        case 2 : ListarAcoes(); break;
+        case 3 : AtualizarAcao(); break;
+        case 4 : ExcluirAcao(); break;
+        }
+      }
+      catch (Exception erro){
+        op = -1;
+        Console.WriteLine("Erro: " + erro.Message);
       }
     } while (op != 0);
     
@@ -19,6 +27,7 @@ class Program{
   Console.WriteLine("01 - Cadastrar uma Ação");
   Console.WriteLine("02 - Listar Ações");
   Console.WriteLine("03 - Atualizar uma Ação");
+  Console.WriteLine("04 - Excluir uma Ação"); 
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -62,5 +71,18 @@ class Program{
     Sistema.AcaoAtualizar(obj);
     Console.WriteLine("");
     Console.WriteLine("------Ação Atualizada com sucesso--------");
+   }
+  public static void ExcluirAcao(){
+    Console.WriteLine("---------- Excluir uma ação ----------");
+    Console.Write("Informe o Id da ação a ser Excluida: ");
+    int id = int.Parse(Console.ReadLine());
+    string nome = "";
+    string local = "";
+    ;
+    DateTime data = DateTime.Now;
+    Acao obj = new Acao(id,data,nome,local);
+    Sistema.AcaoExcluir(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Ação excluida com sucesso--------");
    }
   }

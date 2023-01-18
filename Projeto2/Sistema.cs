@@ -37,17 +37,17 @@ class Sistema{
   }
 
   public static void AcaoExcluir(Acao obj){
-    int aux = Acaoid(obj.GetId());
+    int aux = Acaoid(obj.Getid());
     if (aux != -1){
-      for (int i = aux;i<nAcoes - 1; i++)
+      for (int i = aux;i<nAcao - 1; i++)
       Acoes[i] = Acoes[i + 1];
       nAcao--;
+      }
     }
-  }
-  pubic static void Acaoid(int id){
+  public static int Acaoid(int id){
     for( int i =0; i < nAcao; i++ ){
     Acao obj = Acoes[i];
-    if (obj.GetId == id) return i; }
-    Return -1
+    if (obj.Getid() == id) return i; }
+    return -1;
     }
-}
+  }
