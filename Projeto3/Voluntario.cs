@@ -1,12 +1,15 @@
 using System;
+public enum Interesses: byte {
+  Escola = 1, Hospital = 2, Asilo = 3, Serviço_comunitario = 4
+}
 public class Voluntario{
-  private int idvoluntario;
+  private int id;
   private int idUsuario;
   private int idade;
   private string nome;
   private string ender;
-  private string interesses;
-  public Voluntario(int id,int Idusuario,int Idade,string Nome,string Ender, string Interesses){
+  public Interesses interesses;
+  public Voluntario(int id,int Idusuario,int Idade,string Nome,string Ender, Interesses Interesses){
     this.id = id;
     this.idUsuario = Idusuario;
     this.idade = Idade;
@@ -32,7 +35,7 @@ public class Voluntario{
   public void SetInte(string uminteresse){
     this.interesses = uminteresse;
   }
-  public int Getid(){
+  public int Getidvoluntario(){
     return idvoluntario;
   }
   public int Getidusuario(){

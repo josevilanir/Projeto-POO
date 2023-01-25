@@ -4,7 +4,7 @@ using System.Collections.Generic;
 class Sistema{
   private static Acao[] Acoes = new Acao[10];
   private static int nAcao;
-  Private static List<Voluntario> Voluntarios = new List<Voluntario>();
+  private static List<Voluntario> Voluntarios = new List<Voluntario>();
   public static void CadastroAcao(Acao obj){
     if (nAcao == Acoes.Length)
       Array.Resize(ref Acoes,2*Acoes.Length);
@@ -73,20 +73,17 @@ class Sistema{
   
   public static void VoluntarioAtualizar(Voluntario obj){
     //localizara a acao com base no id especificado no metodo anterior.
-    Voluntario aux = Voluntariolistar(obj.Getid());
-    if (aux != null)
-    aux.SetData(obj.GetData());
+    Voluntario aux = Voluntariolistar(obj.Getidvoluntario());
+    if (aux != null){
+    aux.SetIdade(obj.GetData());
     aux.SetNome(obj.GetNome());
-    aux.SetEnder(obj.GetLocal());
-    
+    aux.SetEnder(obj.GetEnder());
+    aux.SetInte(obj.GetInte());
+      }
   }
 
-  public static void AcaoExcluir(Acao obj){
-    int aux = Acaoid(obj.Getid());
-    if (aux != -1){
-      for (int i = aux;i<nAcao - 1; i++)
-      Acoes[i] = Acoes[i + 1];
-      nAcao--;
-      }
-    } 
+  public static void VoluntarioExcluir(Voluntario obj){
+    Voluntario aux = Voluntariolistar(obj.Getidvoluntario());
+    if (aux != null) Voluntarios.Remove(aux);
+    }
   }
