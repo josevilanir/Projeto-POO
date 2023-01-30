@@ -9,6 +9,9 @@ public class Voluntario{
   private string nome;
   private string ender;
   public Interesses interesses;
+  public Voluntario(int id){
+    this.id = id;
+    }
   public Voluntario(int id,int Idusuario,int Idade,string Nome,string Ender, Interesses Interesses){
     this.id = id;
     this.idUsuario = Idusuario;
@@ -18,7 +21,7 @@ public class Voluntario{
     this.interesses = Interesses;
     }  
   public void Setid(int id){
-    this.idvoluntario = id;
+    this.id = id;
   }
   public void Setidusuario(int umidusuario){
     this.idUsuario = umidusuario;
@@ -32,11 +35,11 @@ public class Voluntario{
   public void SetEnder(string umEnder){
     this.ender = umEnder;
   }
-  public void SetInte(string uminteresse){
+  public void SetInte(Interesses uminteresse){
     this.interesses = uminteresse;
   }
-  public int Getidvoluntario(){
-    return idvoluntario;
+  public int Getid(){
+    return id;
   }
   public int Getidusuario(){
     return idUsuario;
@@ -50,10 +53,10 @@ public class Voluntario{
   public string GetEnder(){
     return ender;
   }
-  public string GetInte(){
+  public Interesses GetInte(){
     return interesses;
   }
   public override string ToString(){
-   return $"Nome:{nome} - Idade:{idade} - Endereço:{ender} - Interesses: {interesses}" ;
+   return $" Id: {id} - Nome:{nome} - Idade:{idade} - Endereço:{ender} - Interesses: {interesses}" ;
   }
 }

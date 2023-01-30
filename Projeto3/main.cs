@@ -12,6 +12,11 @@ class Program{
         case 2 : ListarAcoes(); break;
         case 3 : AtualizarAcao(); break;
         case 4 : ExcluirAcao(); break;
+        case 5 : CadastroVoluntario(); break;
+        case 6 : ListarVoluntario(); break;
+        case 7 : AtualizarVoluntario(); break;
+        case 8 : ExcluirVoluntario(); break;
+       
         }
       }
       catch (Exception erro){
@@ -27,7 +32,11 @@ class Program{
   Console.WriteLine("01 - Cadastrar uma Ação");
   Console.WriteLine("02 - Listar Ações");
   Console.WriteLine("03 - Atualizar uma Ação");
-  Console.WriteLine("04 - Excluir uma Ação"); 
+  Console.WriteLine("04 - Excluir uma Ação");
+  Console.WriteLine("05 - Cadastrar um voluntário");
+  Console.WriteLine("06 - Listar voluntários");
+  Console.WriteLine("07 - Atualizar um voluntario");
+  Console.WriteLine("08 - Excluir um voluntário"); 
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -84,5 +93,63 @@ class Program{
     Sistema.AcaoExcluir(obj);
     Console.WriteLine("");
     Console.WriteLine("------Ação excluida com sucesso--------");
+   }
+  // Menu do voluntário
+  public static void CadastroVoluntario(){
+    Console.WriteLine("---------- Cadastrar um Voluntário ----------");
+    Console.Write("Informe o Id: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.Write("Informe o Id do usuario: ");
+    int idUsuario = int.Parse(Console.ReadLine());
+    Console.Write("Informe um nome: ");
+    string nome = Console.ReadLine();
+    Console.Write("Informe seu endereço:");
+    string ender = Console.ReadLine();
+    Console.Write("Informe sua idade:");
+    int idade = int.Parse(Console.ReadLine());
+    Console.Write("Informe seus seus interesses: Escola : 1 - Hospital : 2 - Asilo : 3 -  Serviço_comunitario - 4");
+    int aux = int.Parse(Console.ReadLine()); // Variavel auxiliar para selecionar os interesses
+    Interesses interesses = (Interesses) aux;
+    Voluntario obj = new Voluntario(id,idUsuario,idade,nome,ender,interesses );
+    Sistema.CadastroVoluntario(obj);
+    Console.WriteLine("--------Voluntario Cadastrado com sucesso---------");
+  }
+  public static void ListarVoluntario(){
+    Console.WriteLine("--------Listar voluntarios cadastrados---------");
+    foreach (Voluntario obj in Sistema.ListarVoluntario())
+      Console.WriteLine(obj);
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+  }
+  public static void AtualizarVoluntario(){
+    Console.WriteLine("---------- Atualizar um perfil de Voluntário ----------");
+    Console.Write("Informe o Id do voluntário: ");
+    int id = int.Parse(Console.ReadLine());
+    Console.Write("Informe o Id de usuário do voluntário: ");
+    int idUsuario = int.Parse(Console.ReadLine());
+    Console.Write("Informe um novo nome para o voluntário: ");
+    string nome = Console.ReadLine();
+    Console.Write("Informe um novo endereço do voluntário:");
+    string ender = Console.ReadLine();
+    Console.Write("Informe a nova idade do voluntário:");
+    int idade = int.Parse(Console.ReadLine());
+    Console.Write("Defina um novo interesse para o Voluntario:");
+    int aux = int.Parse(Console.ReadLine()); // Variavel auxiliar para selecionar os interesses
+    Interesses interesses = (Interesses) aux;
+    Voluntario obj = new Voluntario(id,idUsuario,idade,nome,ender,interesses );
+    Sistema.VoluntarioAtualizar(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Voluntario Atualizado com sucesso--------");
+   }
+  public static void ExcluirVoluntario(){
+    Console.WriteLine("---------- Excluir um Voluntário ----------");
+    Console.Write("Informe o Id do voluntario a ser Excluido: ");
+    int id = int.Parse(Console.ReadLine());
+   
+    DateTime data = DateTime.Now;
+    Voluntario obj = new Voluntario(id);
+    Sistema.VoluntarioExcluir(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Voluntario excluido com sucesso--------");
    }
   }

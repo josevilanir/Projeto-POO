@@ -58,14 +58,14 @@ class Sistema{
     }
   
   public static List<Voluntario> ListarVoluntario(){
-    return voluntarios;
+    return Voluntarios;
    }
   
   //metodo para retornar um id de um voluntario específico
   
   public static Voluntario Voluntariolistar(int id){
     foreach (Voluntario obj in Voluntarios)
-      if (obj.Getid() == idvoluntario) return obj;
+      if (obj.Getid() == id) return obj;
     return null;
     
   }
@@ -73,9 +73,9 @@ class Sistema{
   
   public static void VoluntarioAtualizar(Voluntario obj){
     //localizara a acao com base no id especificado no metodo anterior.
-    Voluntario aux = Voluntariolistar(obj.Getidvoluntario());
+    Voluntario aux = Voluntariolistar(obj.Getid());
     if (aux != null){
-    aux.SetIdade(obj.GetData());
+    aux.SetIdade(obj.GetIdade());
     aux.SetNome(obj.GetNome());
     aux.SetEnder(obj.GetEnder());
     aux.SetInte(obj.GetInte());
@@ -83,7 +83,7 @@ class Sistema{
   }
 
   public static void VoluntarioExcluir(Voluntario obj){
-    Voluntario aux = Voluntariolistar(obj.Getidvoluntario());
+    Voluntario aux = Voluntariolistar(obj.Getid());
     if (aux != null) Voluntarios.Remove(aux);
     }
   }
