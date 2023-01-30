@@ -54,7 +54,9 @@ class Program{
     string local = Console.ReadLine();
     Console.Write("Informe a data em que a ação acontecerá:");
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
-    Acao obj = new Acao(id,data,nome,local);
+    Console.Write("Informe o seu id de Voluntario: ");
+    int idVoluntario = int.Parse(Console.ReadLine());
+    Acao obj = new Acao(id,data,nome,local,idVoluntario);
     Sistema.CadastroAcao(obj);
     Console.WriteLine("--------Ação inserida com sucesso---------");
   }
@@ -76,7 +78,9 @@ class Program{
     string local = Console.ReadLine();
     Console.Write("Informe a nova data em que a ação acontecerá:");
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
-    Acao obj = new Acao(id,data,nome,local);
+    Console.Write("Informe o novo id de voluntario do dono da ação:");
+    int idVoluntario = int.Parse(Console.ReadLine());
+    Acao obj = new Acao(id,data,nome,local,idVoluntario);
     Sistema.AcaoAtualizar(obj);
     Console.WriteLine("");
     Console.WriteLine("------Ação Atualizada com sucesso--------");
@@ -85,11 +89,9 @@ class Program{
     Console.WriteLine("---------- Excluir uma ação ----------");
     Console.Write("Informe o Id da ação a ser Excluida: ");
     int id = int.Parse(Console.ReadLine());
-    string nome = "";
-    string local = "";
-    ;
+    
     DateTime data = DateTime.Now;
-    Acao obj = new Acao(id,data,nome,local);
+    Acao obj = new Acao(id);
     Sistema.AcaoExcluir(obj);
     Console.WriteLine("");
     Console.WriteLine("------Ação excluida com sucesso--------");

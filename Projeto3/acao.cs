@@ -1,17 +1,25 @@
 using System;
 public class Acao{
   private int id;
+  private int idVoluntario;
   private string nome;
   private string local;
   private DateTime data;
-  public Acao(int id,DateTime Data ,string Nome,string Local){
+  public Acao(int id){
+    this.id = id;
+    }
+  public Acao(int id,DateTime Data ,string Nome,string Local, int IdVoluntario){
     this.id = id;
     this.data = Data;
     this.nome = Nome;
+    this.idVoluntario = IdVoluntario;
     this.local = Local;
     }  
   public void Setid(int id){
     this.id = id;
+  }
+  public void SetidVoluntario(int umIdVoluntario){
+    this.idVoluntario = umIdVoluntario;
   }
   public void SetData(DateTime umaData){
     this.data = umaData;
@@ -25,7 +33,9 @@ public class Acao{
   public int Getid(){
     return id;
   }
-
+  public int GetidVoluntario(){
+    return idVoluntario;
+  }
   public string GetNome(){
     return nome;
   }
