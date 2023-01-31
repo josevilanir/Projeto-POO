@@ -3,7 +3,7 @@ public enum Interesses: byte {
   Escola = 1, Hospital = 2, Asilo = 3, Serviço_comunitario = 4
 }
 public class Voluntario{
-  private int id;
+  public int id;
   private int idUsuario;
   private int idade;
   private string nome;

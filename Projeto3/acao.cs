@@ -1,6 +1,6 @@
 using System;
 public class Acao{
-  private int id;
+  public int id;
   private int idVoluntario;
   private string nome;
   private string local;

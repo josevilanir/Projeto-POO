@@ -4,14 +4,17 @@ using System.Collections.Generic;
 class Sistema{
   private static Acao[] Acoes = new Acao[10];
   private static int nAcao;
+  private static int nidAcao = 1; // Contador que define os ids das acoes
   private static int nInsc = 1;
   private static List<Voluntario> Voluntarios = new List<Voluntario>();
   private static Inscricao[] Inscricoes = new Inscricao[1];
   public static void CadastroAcao(Acao obj){
+    
     if (nAcao == Acoes.Length)
       Array.Resize(ref Acoes,2*Acoes.Length);
     Acoes[nAcao] = obj;
     nAcao++;
+    nidAcao++;
     
   }
   public static Acao[] ListarAcoes(){
@@ -56,6 +59,10 @@ class Sistema{
  
   //Metodos para a classe Voluntario.
   public static void CadastroVoluntario(Voluntario obj){
+    int id = 0;
+    foreach(Voluntario aux in Voluntarios)
+      if (aux.Getid() > id ) id = aux.Getid();
+    obj.id = id + 1;
     Voluntarios.Add(obj);
     }
   
@@ -105,6 +112,9 @@ class Sistema{
   }
   public static int GetIdinsc(){
     return nInsc;
+  }
+  public static int GetIdAcao(){
+    return nidAcao;
   }
   public static Inscricao[] ListarInscricoes(){
     Inscricao[] aux  = new Inscricao[nInsc];

@@ -49,8 +49,7 @@ class Program{
   }
   public static void CadastroAcao(){
     Console.WriteLine("---------- Inserir uma nova ação ----------");
-    Console.Write("Informe o Id: ");
-    int id = int.Parse(Console.ReadLine());
+    int id = Sistema.GetIdAcao();
     Console.Write("Dê um nome para a ação: ");
     string nome = Console.ReadLine();
     Console.Write("Informe o local onde a ação acontecerá:");
@@ -102,17 +101,15 @@ class Program{
   // Menu do voluntário
   public static void CadastroVoluntario(){
     Console.WriteLine("---------- Cadastrar um Voluntário ----------");
-    Console.Write("Informe o Id: ");
-    int id = int.Parse(Console.ReadLine());
-    Console.Write("Informe o Id do usuario: ");
-    int idUsuario = int.Parse(Console.ReadLine());
+    int id = 0;
+    int idUsuario = 1;
     Console.Write("Informe um nome: ");
     string nome = Console.ReadLine();
     Console.Write("Informe seu endereço:");
     string ender = Console.ReadLine();
     Console.Write("Informe sua idade:");
     int idade = int.Parse(Console.ReadLine());
-    Console.Write("Informe seus seus interesses: Escola : 1 \n- Hospital : 2 \n- Asilo : 3 \n-  Serviço_comunitario - 4");
+    Console.Write("Informe seus interesses: \n- Escola : 1 \n- Hospital : 2 \n- Asilo : 3 \n- Serviço_comunitario : 4\n");
     int aux = int.Parse(Console.ReadLine()); // Variavel auxiliar para selecionar os interesses
     Interesses interesses = (Interesses) aux;
     Voluntario obj = new Voluntario(id,idUsuario,idade,nome,ender,interesses );
@@ -128,10 +125,9 @@ class Program{
   }
   public static void AtualizarVoluntario(){
     Console.WriteLine("---------- Atualizar um perfil de Voluntário ----------");
-    Console.Write("Informe o Id do voluntário: ");
+    Console.Write("Informe o Id do voluntário a ser atualizado: ");
     int id = int.Parse(Console.ReadLine());
-    Console.Write("Informe o Id de usuário do voluntário: ");
-    int idUsuario = int.Parse(Console.ReadLine());
+    int idUsuario = 1;
     Console.Write("Informe um novo nome para o voluntário: ");
     string nome = Console.ReadLine();
     Console.Write("Informe um novo endereço do voluntário:");
@@ -179,5 +175,4 @@ class Program{
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
-
   }
