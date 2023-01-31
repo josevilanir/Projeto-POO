@@ -16,7 +16,8 @@ class Program{
         case 6 : ListarVoluntario(); break;
         case 7 : AtualizarVoluntario(); break;
         case 8 : ExcluirVoluntario(); break;
-       
+        case 9 : CadastroInscricao(); break;
+        case 10 : ListarIncricoes (); break;
         }
       }
       catch (Exception erro){
@@ -37,6 +38,8 @@ class Program{
   Console.WriteLine("06 - Listar voluntários");
   Console.WriteLine("07 - Atualizar um voluntario");
   Console.WriteLine("08 - Excluir um voluntário"); 
+  Console.WriteLine("09 - Inscrever-se em uma ação");
+  Console.WriteLine("10 - Ver incrições realizadas"); 
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -109,7 +112,7 @@ class Program{
     string ender = Console.ReadLine();
     Console.Write("Informe sua idade:");
     int idade = int.Parse(Console.ReadLine());
-    Console.Write("Informe seus seus interesses: Escola : 1 - Hospital : 2 - Asilo : 3 -  Serviço_comunitario - 4");
+    Console.Write("Informe seus seus interesses: Escola : 1 \n- Hospital : 2 \n- Asilo : 3 \n-  Serviço_comunitario - 4");
     int aux = int.Parse(Console.ReadLine()); // Variavel auxiliar para selecionar os interesses
     Interesses interesses = (Interesses) aux;
     Voluntario obj = new Voluntario(id,idUsuario,idade,nome,ender,interesses );
@@ -154,4 +157,27 @@ class Program{
     Console.WriteLine("");
     Console.WriteLine("------Voluntario excluido com sucesso--------");
    }
+  //menu de inscrições
+  public static void CadastroInscricao(){
+    Console.WriteLine("---------- Inscrever-se em uma ação ----------");
+    ListarAcoes();
+    Console.Write("Informe o Id da ação que deseja participar: ");
+    int idAcao = int.Parse(Console.ReadLine());
+    Console.Write("Informe seu Id de voluntário: ");
+    int idVoluntario = int.Parse(Console.ReadLine());
+    int idInsc = Sistema.GetIdinsc();
+    string AcaoNome = Sistema.AcaoEncontrarNome(idAcao);
+    string VoluntarioNome = Sistema.VoluntarioEncontrarNome(idVoluntario);
+    Inscricao obj = new Inscricao(idInsc,idVoluntario,idAcao,AcaoNome,VoluntarioNome);
+    Sistema.CadastroInscricao(obj);
+    Console.WriteLine("--------Inscrição realizada com sucesso---------");
+  }
+  public static void ListarIncricoes(){
+    Console.WriteLine("--------Listar incrições realizadas---------");
+    foreach (Inscricao obj in Sistema.ListarInscricoes())
+      Console.WriteLine(obj);
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+  }
+
   }

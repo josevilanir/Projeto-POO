@@ -4,7 +4,9 @@ using System.Collections.Generic;
 class Sistema{
   private static Acao[] Acoes = new Acao[10];
   private static int nAcao;
+  private static int nInsc = 1;
   private static List<Voluntario> Voluntarios = new List<Voluntario>();
+  private static Inscricao[] Inscricoes = new Inscricao[1];
   public static void CadastroAcao(Acao obj){
     if (nAcao == Acoes.Length)
       Array.Resize(ref Acoes,2*Acoes.Length);
@@ -18,7 +20,7 @@ class Sistema{
     return aux;
     
   }
-  //metodo para retornar um id que espicificará a especie a ser atualizada
+  //metodo para retornar um obj com base no ID espicificará a especie a ser atualizada
   public static Acao Acaolistar(int id){
     foreach (Acao obj in Acoes)
       if (obj != null && obj.Getid() == id) return obj;
@@ -86,4 +88,39 @@ class Sistema{
     Voluntario aux = Voluntariolistar(obj.Getid());
     if (aux != null) Voluntarios.Remove(aux);
     }
+  //metodos para classe de inscrição
+  public static void CadastroInscricao(Inscricao obj){
+    if (nInsc == Inscricoes.Length)
+      Array.Resize(ref Inscricoes,2*Inscricoes.Length);
+    Inscricoes[nInsc] = obj;
+    nInsc++;
+
+    }
+  //Encontra a ação em que o voluntario será escrito com base no id informado pelo usuário 
+  public static Acao AcaoEncontrar(int id){
+    foreach (Acao obj in Acoes)
+      if (obj != null && obj.Getid() == id) return obj;
+    return null;
+    
+  }
+  public static int GetIdinsc(){
+    return nInsc;
+  }
+  public static Inscricao[] ListarInscricoes(){
+    Inscricao[] aux  = new Inscricao[nInsc];
+    Array.Copy(Inscricoes, aux, nInsc);
+    return aux;
+  }
+  public static string AcaoEncontrarNome(int id){
+    foreach (Acao obj in Acoes)
+      if (obj != null && obj.Getid() == id) return obj.GetNome();
+    return null;
+    
+  }
+  public static string VoluntarioEncontrarNome(int id){
+    foreach (Voluntario obj in Voluntarios)
+      if (obj != null && obj.Getid() == id) return obj.GetNome();
+    return null;
+    
+  }
   }

@@ -1,4 +1,4 @@
-run = "csc ./Projeto3/main.cs ./Projeto3/Voluntario.cs ./Projeto3/acao.cs ./Projeto3/Sistema.cs -out:Main.exe; mono Main.exe"
+run = "csc ./Projeto3/main.cs ./Projeto3/Voluntario.cs ./Projeto3/acao.cs ./Projeto3/Sistema.cs ./Projeto3/Inscricao.cs -out:Main.exe; mono Main.exe"
 
 [nix]
 channel = "stable-22_11"
