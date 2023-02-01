@@ -7,7 +7,7 @@ class Sistema{
   private static int nidAcao = 1; // Contador que define os ids das acoes
   private static int nInsc = 1;
   private static List<Voluntario> Voluntarios = new List<Voluntario>();
-  private static Inscricao[] Inscricoes = new Inscricao[1];
+  private static List<Inscricao> Inscricoes = new List<Inscricao>();
   public static void CadastroAcao(Acao obj){
     
     if (nAcao == Acoes.Length)
@@ -97,11 +97,11 @@ class Sistema{
     }
   //metodos para classe de inscrição
   public static void CadastroInscricao(Inscricao obj){
-    if (nInsc == Inscricoes.Length)
-      Array.Resize(ref Inscricoes,2*Inscricoes.Length);
-    Inscricoes[nInsc] = obj;
-    nInsc++;
-
+    int id = 0;
+    foreach(Inscricao aux in Inscricoes)
+      if (aux.GetidInsc() > id ) id = aux.GetidInsc();
+    obj.idInsc = id + 1;
+    Inscricoes.Add(obj);
     }
   //Encontra a ação em que o voluntario será escrito com base no id informado pelo usuário 
   public static Acao AcaoEncontrar(int id){
@@ -110,16 +110,16 @@ class Sistema{
     return null;
     
   }
+  // Contador para id de inscrição 
   public static int GetIdinsc(){
     return nInsc;
   }
+  //Contador para id de voluntario 
   public static int GetIdAcao(){
     return nidAcao;
   }
-  public static Inscricao[] ListarInscricoes(){
-    Inscricao[] aux  = new Inscricao[nInsc];
-    Array.Copy(Inscricoes, aux, nInsc);
-    return aux;
+  public static List<Inscricao> ListarInscricoes(){
+    return Inscricoes;
   }
   public static string AcaoEncontrarNome(int id){
     foreach (Acao obj in Acoes)
@@ -131,6 +131,13 @@ class Sistema{
     foreach (Voluntario obj in Voluntarios)
       if (obj != null && obj.Getid() == id) return obj.GetNome();
     return null;
-    
+  }
+  // retorna uma lista de todas as inscriçoes feitas por um voluntario específico
+  public static List<Inscricao> InscricoesVoluntario(Voluntario voluntario){
+    List<Inscricao> r = new List<Inscricao>();
+    foreach(Inscricao obj in Inscricoes) 
+      if (obj.GetidVoluntario() == voluntario.Getid())
+        r.Add(obj);
+    return r;
   }
   }

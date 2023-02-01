@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Collections.Generic;
 class Program{
   public static void Main(){
     Console.WriteLine("Bem vindo ao Help.io");
@@ -18,6 +19,7 @@ class Program{
         case 8 : ExcluirVoluntario(); break;
         case 9 : CadastroInscricao(); break;
         case 10 : ListarIncricoes (); break;
+        case 11 : ListarIncricoesVoluntario(); break;
         }
       }
       catch (Exception erro){
@@ -39,7 +41,8 @@ class Program{
   Console.WriteLine("07 - Atualizar um voluntario");
   Console.WriteLine("08 - Excluir um voluntário"); 
   Console.WriteLine("09 - Inscrever-se em uma ação");
-  Console.WriteLine("10 - Ver incrições realizadas"); 
+  Console.WriteLine("10 - Ver incrições realizadas");
+  Console.WriteLine("11 - Inscrições de um usuário específico"); 
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -172,6 +175,16 @@ class Program{
     Console.WriteLine("--------Listar incrições realizadas---------");
     foreach (Inscricao obj in Sistema.ListarInscricoes())
       Console.WriteLine(obj);
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+  }
+  public static void ListarIncricoesVoluntario(){
+    Console.WriteLine("--- Incrições realizadas por esse usuário ---");
+    Console.WriteLine("Informe o ID do voluntario que deseja verificar suas inscrições: ");
+    int id = int.Parse(Console.ReadLine());
+    Voluntario obj = Sistema.Voluntariolistar(id);
+    foreach (var i in Sistema.InscricoesVoluntario(obj))
+    {Console.WriteLine(i);};
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }

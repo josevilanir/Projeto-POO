@@ -1,6 +1,6 @@
 using System;
 public class Inscricao{
-  private int idInsc;
+  public int idInsc;
   private int idVoluntario;
   private int idAcao;
   private string AcaoNome;
