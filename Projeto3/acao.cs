@@ -5,15 +5,17 @@ public class Acao{
   private string nome;
   private string local;
   private DateTime data;
+  public bool ajuda;
   public Acao(int id){
     this.id = id;
     }
-  public Acao(int id,DateTime Data ,string Nome,string Local, int IdVoluntario){
+  public Acao(int id,DateTime Data ,string Nome,string Local, int IdVoluntario,bool Ajuda){
     this.id = id;
     this.data = Data;
     this.nome = Nome;
     this.idVoluntario = IdVoluntario;
     this.local = Local;
+    this.ajuda = Ajuda;
     }  
   public void Setid(int id){
     this.id = id;
@@ -30,6 +32,9 @@ public class Acao{
   public void SetEnder(string umLocal){
     this.local = umLocal;
   }
+  public void SetAjuda(bool umaAjuda){
+    this.ajuda = umaAjuda;
+  }
   public int Getid(){
     return id;
   }
@@ -45,7 +50,16 @@ public class Acao{
   public DateTime GetData(){
     return data;
   }
+  public bool GetAjuda(){
+    return ajuda;
+  }
+  //Metodo que transforma a ação em ajuda baseado num inteiro informado pelo usuário
+  public static bool TransformarAjudaAcao(int i, bool x){
+  
+  if (i == 1) x = true;
+    return x;
+  }
   public override string ToString(){
-   return $" ID: {id} - {nome} - Acontecera no local: {local} - Será no dia: {data:dd/MM/yyyy} ";
+   return $"ID: {id} - {nome} - Acontecera no local: {local} - Será no dia: {data:dd/MM/yyyy} ";
   }
 }

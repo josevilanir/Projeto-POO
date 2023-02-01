@@ -39,7 +39,7 @@ class Sistema{
     aux.SetData(obj.GetData());
     aux.SetNome(obj.GetNome());
     aux.SetEnder(obj.GetLocal());
-    
+    aux.SetAjuda(obj.GetAjuda());
   }
 
   public static void AcaoExcluir(Acao obj){

@@ -32,8 +32,8 @@ class Program{
   public static int Menu(){
   Console.WriteLine();
   Console.WriteLine("---------- Escolha Uma opção! ----------");
-  Console.WriteLine("01 - Cadastrar uma Ação");
-  Console.WriteLine("02 - Listar Ações");
+  Console.WriteLine("01 - Cadastrar um movimento");
+  Console.WriteLine("02 - Listar movimentos");
   Console.WriteLine("03 - Atualizar uma Ação");
   Console.WriteLine("04 - Excluir uma Ação");
   Console.WriteLine("05 - Cadastrar um voluntário");
@@ -51,24 +51,32 @@ class Program{
   return op;
   }
   public static void CadastroAcao(){
-    Console.WriteLine("---------- Inserir uma nova ação ----------");
+    Console.WriteLine("---------- Inserir um movimento ----------");
     int id = Sistema.GetIdAcao();
-    Console.Write("Dê um nome para a ação: ");
+    Console.Write("Dê um nome para o movimento: ");
     string nome = Console.ReadLine();
-    Console.Write("Informe o local onde a ação acontecerá:");
+    Console.Write("Informe o local onde o movimento acontecerá:");
     string local = Console.ReadLine();
-    Console.Write("Informe a data em que a ação acontecerá:");
+    Console.Write("Informe a data em que o movimento acontecerá:");
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
     Console.Write("Informe o seu id de Voluntario: ");
     int idVoluntario = int.Parse(Console.ReadLine());
-    Acao obj = new Acao(id,data,nome,local,idVoluntario);
+    bool ajuda = false;
+    Console.Write("Você deseja tornar isso uma:\n Ação - 0\n Ajuda - 1\n");
+    int aux  = int.Parse(Console.ReadLine());
+    ajuda = Acao.TransformarAjudaAcao(aux,ajuda);
+    Acao obj = new Acao(id,data,nome,local,idVoluntario,ajuda);
     Sistema.CadastroAcao(obj);
-    Console.WriteLine("--------Ação inserida com sucesso---------");
+    if (ajuda == false)
+      Console.WriteLine("--------Ação inserida com sucesso---------");
+    if (ajuda == true)
+      Console.WriteLine("-------Ajuda inserida com sucesso---------");
   }
   public static void ListarAcoes(){
     Console.WriteLine("--------Listar as ações cadastradas---------");
-    foreach (Acao obj in Sistema.ListarAcoes())
-      Console.WriteLine(obj);
+    foreach (Acao obj in Sistema.ListarAcoes()){
+      if (obj.ajuda == false ) {Console.WriteLine($" Ação - {obj}" );}
+      else { Console.WriteLine($" Ajuda - {obj}" );}}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
@@ -85,13 +93,20 @@ class Program{
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
     Console.Write("Informe o novo id de voluntario do dono da ação:");
     int idVoluntario = int.Parse(Console.ReadLine());
-    Acao obj = new Acao(id,data,nome,local,idVoluntario);
+    bool ajuda = false;
+    Console.Write("Você deseja atualizar isso para uma:\n Ação - 0\n Ajuda - 1\n");
+    int aux  = int.Parse(Console.ReadLine());
+    ajuda = Acao.TransformarAjudaAcao(aux,ajuda);
+    Acao obj = new Acao(id,data,nome,local,idVoluntario,ajuda);
     Sistema.AcaoAtualizar(obj);
     Console.WriteLine("");
-    Console.WriteLine("------Ação Atualizada com sucesso--------");
+    if (ajuda == false)
+      Console.WriteLine("--------Ação atualizada com sucesso---------");
+    if (ajuda == true)
+      Console.WriteLine("-------Ajuda atualizada com sucesso---------");
    }
   public static void ExcluirAcao(){
-    Console.WriteLine("---------- Excluir uma ação ----------");
+    Console.WriteLine("---------- Excluir um movimento ----------");
     Console.Write("Informe o Id da ação a ser Excluida: ");
     int id = int.Parse(Console.ReadLine());
     
@@ -99,7 +114,7 @@ class Program{
     Acao obj = new Acao(id);
     Sistema.AcaoExcluir(obj);
     Console.WriteLine("");
-    Console.WriteLine("------Ação excluida com sucesso--------");
+    Console.WriteLine("------Movimento excluido com sucesso--------");
    }
   // Menu do voluntário
   public static void CadastroVoluntario(){
