@@ -34,7 +34,7 @@ class Program{
   Console.WriteLine("---------- Escolha Uma opção! ----------");
   Console.WriteLine("01 - Cadastrar um movimento");
   Console.WriteLine("02 - Listar movimentos");
-  Console.WriteLine("03 - Atualizar uma Ação");
+  Console.WriteLine("03 - Atualizar um movimento");
   Console.WriteLine("04 - Excluir uma Ação");
   Console.WriteLine("05 - Cadastrar um voluntário");
   Console.WriteLine("06 - Listar voluntários");
@@ -73,7 +73,7 @@ class Program{
       Console.WriteLine("-------Ajuda inserida com sucesso---------");
   }
   public static void ListarAcoes(){
-    Console.WriteLine("--------Listar as ações cadastradas---------");
+    Console.WriteLine("--------Listar os movimentos cadastrados---------");
     foreach (Acao obj in Sistema.ListarAcoes()){
       if (obj.ajuda == false ) {Console.WriteLine($" Ação - {obj}" );}
       else { Console.WriteLine($" Ajuda - {obj}" );}}
@@ -82,16 +82,17 @@ class Program{
   }
 
    public static void AtualizarAcao(){
-    Console.WriteLine("---------- Atualizar uma ação ----------");
-    Console.Write("Informe o Id da ação a ser atualizada: ");
+    Console.WriteLine("---------- Atualizar um movimento ----------");
+    ListarAcoes();
+    Console.Write("Informe o Id do movimento a ser atualizado: ");
     int id = int.Parse(Console.ReadLine());
-    Console.Write("Informe um novo nome para a ação: ");
+    Console.Write("Informe um novo nome para o movimento: ");
     string nome = Console.ReadLine();
-    Console.Write("Informe um novo local onde a ação acontecerá:");
+    Console.Write("Informe um novo local onde o movimento acontecerá:");
     string local = Console.ReadLine();
-    Console.Write("Informe a nova data em que a ação acontecerá:");
+    Console.Write("Informe a nova data em que o movimento acontecerá:");
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
-    Console.Write("Informe o novo id de voluntario do dono da ação:");
+    Console.Write("Informe o novo id de voluntario do dono do movimento:");
     int idVoluntario = int.Parse(Console.ReadLine());
     bool ajuda = false;
     Console.Write("Você deseja atualizar isso para uma:\n Ação - 0\n Ajuda - 1\n");
@@ -180,16 +181,21 @@ class Program{
     Console.Write("Informe seu Id de voluntário: ");
     int idVoluntario = int.Parse(Console.ReadLine());
     int idInsc = Sistema.GetIdinsc();
-    string AcaoNome = Sistema.AcaoEncontrarNome(idAcao);
-    string VoluntarioNome = Sistema.VoluntarioEncontrarNome(idVoluntario);
-    Inscricao obj = new Inscricao(idInsc,idVoluntario,idAcao,AcaoNome,VoluntarioNome);
+    
+    
+    Inscricao obj = new Inscricao(idInsc,idVoluntario,idAcao);
     Sistema.CadastroInscricao(obj);
     Console.WriteLine("--------Inscrição realizada com sucesso---------");
   }
   public static void ListarIncricoes(){
     Console.WriteLine("--------Listar incrições realizadas---------");
-    foreach (Inscricao obj in Sistema.ListarInscricoes())
-      Console.WriteLine(obj);
+    
+    foreach (Inscricao obj in Sistema.ListarInscricoes()){
+      Acao aux = Sistema.AcaoEncontrar(obj.GetidAcao());
+      //Desclaração da variavel nome fora do método para que ocorra atualização automatica do mesmo quando um usuario tiver seu nome atualizado
+      string nome = Sistema.VoluntarioEncontrarNome(obj.GetidVoluntario());
+      if (aux.ajuda == false) {Console.WriteLine($"{obj}{nome} foi inscrito na Ação: {aux.GetNome()}");}
+      else {Console.WriteLine($"{obj}{nome} foi inscrito na Ajuda: {aux.GetNome()}");}}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
@@ -197,9 +203,14 @@ class Program{
     Console.WriteLine("--- Incrições realizadas por esse usuário ---");
     Console.WriteLine("Informe o ID do voluntario que deseja verificar suas inscrições: ");
     int id = int.Parse(Console.ReadLine());
+    //retorna um voluntario selecionado pelo id 
     Voluntario obj = Sistema.Voluntariolistar(id);
+    // retorna uma lista com todas as inscrições feitas pelo voluntário
     foreach (var i in Sistema.InscricoesVoluntario(obj))
-    {Console.WriteLine(i);};
+    {  Acao aux = Sistema.AcaoEncontrar(i.GetidAcao());
+      string nome = Sistema.VoluntarioEncontrarNome(i.GetidVoluntario());
+      if (aux.ajuda == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()}");}
+      else {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()}");}}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
