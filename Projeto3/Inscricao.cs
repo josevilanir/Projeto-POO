@@ -5,7 +5,10 @@ public class Inscricao{
   private int idAcao;
   
   
-
+  public Inscricao(int idInsc){
+    this.idInsc = idInsc;
+    }
+  
   public Inscricao(int idInsc, int idVoluntario, int idAcao){
     this.idInsc = idInsc;
     this.idVoluntario = idVoluntario;

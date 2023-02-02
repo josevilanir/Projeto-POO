@@ -141,4 +141,13 @@ class Sistema{
         r.Add(obj);
     return r;
   }
+  public static Inscricao Inscricaolistar(int id){
+    foreach (Inscricao obj in Inscricoes)
+      if (obj.GetidInsc() == id) return obj;
+    return null;
+  }
+  public static void InscricaoExcluir(Inscricao obj){
+    Inscricao aux = Inscricaolistar(obj.GetidInsc());
+    if (aux != null) Inscricoes.Remove(aux);
+    }
   }

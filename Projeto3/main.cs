@@ -20,6 +20,7 @@ class Program{
         case 9 : CadastroInscricao(); break;
         case 10 : ListarIncricoes (); break;
         case 11 : ListarIncricoesVoluntario(); break;
+        case 12 : ExcluirInscricao(); break;
         }
       }
       catch (Exception erro){
@@ -35,14 +36,15 @@ class Program{
   Console.WriteLine("01 - Cadastrar um movimento");
   Console.WriteLine("02 - Listar movimentos");
   Console.WriteLine("03 - Atualizar um movimento");
-  Console.WriteLine("04 - Excluir uma Ação");
+  Console.WriteLine("04 - Excluir um movimento");
   Console.WriteLine("05 - Cadastrar um voluntário");
   Console.WriteLine("06 - Listar voluntários");
   Console.WriteLine("07 - Atualizar um voluntario");
   Console.WriteLine("08 - Excluir um voluntário"); 
-  Console.WriteLine("09 - Inscrever-se em uma ação");
+  Console.WriteLine("09 - Inscrever-se em um movimento");
   Console.WriteLine("10 - Ver incrições realizadas");
   Console.WriteLine("11 - Inscrições de um usuário específico"); 
+  Console.WriteLine("12 - Excluir uma inscrição"); 
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -174,10 +176,11 @@ class Program{
    }
   //menu de inscrições
   public static void CadastroInscricao(){
-    Console.WriteLine("---------- Inscrever-se em uma ação ----------");
+    Console.WriteLine("---------- Inscrever-se em um movimento ----------");
     ListarAcoes();
-    Console.Write("Informe o Id da ação que deseja participar: ");
+    Console.Write("Informe o Id do movimento que deseja participar: ");
     int idAcao = int.Parse(Console.ReadLine());
+    ListarVoluntario();
     Console.Write("Informe seu Id de voluntário: ");
     int idVoluntario = int.Parse(Console.ReadLine());
     int idInsc = Sistema.GetIdinsc();
@@ -200,9 +203,13 @@ class Program{
     Console.WriteLine("--------------------------------------------");
   }
   public static void ListarIncricoesVoluntario(){
-    Console.WriteLine("--- Incrições realizadas por esse usuário ---");
+    ListarVoluntario();
     Console.WriteLine("Informe o ID do voluntario que deseja verificar suas inscrições: ");
     int id = int.Parse(Console.ReadLine());
+    Console.WriteLine("--- Incrições realizadas por esse usuário ---");
+    
+    
+    
     //retorna um voluntario selecionado pelo id 
     Voluntario obj = Sistema.Voluntariolistar(id);
     // retorna uma lista com todas as inscrições feitas pelo voluntário
@@ -214,4 +221,16 @@ class Program{
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
+  public static void ExcluirInscricao(){
+    Console.WriteLine("---------- Excluir uma Inscrição ----------");
+    ListarIncricoes();
+    Console.Write("Informe o Id da inscrição que deseja excluir: ");
+    int idInsc = int.Parse(Console.ReadLine());
+   
+    DateTime data = DateTime.Now;
+    Inscricao obj = new Inscricao(idInsc);
+    Sistema.InscricaoExcluir(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Inscriçao excluida com sucesso--------");
+   }
   }
