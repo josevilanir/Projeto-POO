@@ -40,6 +40,7 @@ class Sistema{
     aux.SetNome(obj.GetNome());
     aux.SetEnder(obj.GetLocal());
     aux.SetAjuda(obj.GetAjuda());
+    aux.SetCategoria(obj.GetCategoria());
   }
 
   public static void AcaoExcluir(Acao obj){
@@ -150,4 +151,12 @@ class Sistema{
     Inscricao aux = Inscricaolistar(obj.GetidInsc());
     if (aux != null) Inscricoes.Remove(aux);
     }
+   // retorna uma lista de todas as inscriçoes feitas em uma ação específica
+  public static List<Inscricao> InscricoesAcao(Acao acao){
+    List<Inscricao> r = new List<Inscricao>();
+    foreach(Inscricao obj in Inscricoes) 
+      if (obj.GetidAcao() == acao.Getid())
+        r.Add(obj);
+    return r;
+  }
   }
