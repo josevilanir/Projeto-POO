@@ -21,7 +21,10 @@ class Program{
         case 10 : ListarIncricoes (); break;
         case 11 : ListarIncricoesVoluntario(); break;
         case 12 : ListarIncricoesAcao(); break;
-        case 13 : ExcluirInscricao(); break;
+        case 13 : ListarApenasInscAcoes(); break;
+        case 14 : ListarApenasInscAjudas(); break;
+        case 15 : ExcluirInscricao(); break;
+        
         }
       }
       catch (Exception erro){
@@ -45,8 +48,10 @@ class Program{
   Console.WriteLine("09 - Inscrever-se em um movimento");
   Console.WriteLine("10 - Ver incrições realizadas");
   Console.WriteLine("11 - Ver inscrições de um usuário específico");
-  Console.WriteLine("12 - Ver inscrições de um movimento específico"); 
-  Console.WriteLine("13 - Excluir uma inscrição"); 
+  Console.WriteLine("12 - Ver inscrições de um movimento específico");
+  Console.WriteLine("13 - Listar apenas Ações"); 
+  Console.WriteLine("14 - Listar apenas Ajudas");
+  Console.WriteLine("15 - Excluir uma inscrição"); 
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -65,7 +70,7 @@ class Program{
     DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
     Console.Write("Informe o seu id de Voluntario: ");
     int idVoluntario = int.Parse(Console.ReadLine());
-    Console.Write("Escolha uma caregoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
+    Console.Write("Escolha uma categoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
     int aux2  = int.Parse(Console.ReadLine());
     Categorias categoria = (Categorias) aux2;
     bool ajuda = false;
@@ -210,6 +215,7 @@ class Program{
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
+  
   public static void ListarIncricoesVoluntario(){
     ListarVoluntario();
     Console.WriteLine("Informe o ID do voluntario que deseja verificar suas inscrições: ");
@@ -246,7 +252,7 @@ class Program{
     Console.WriteLine("Informe o ID do movimento que deseja verificar as inscrições: ");
     int id = int.Parse(Console.ReadLine());
     Console.WriteLine("--- Incrições realizadas nesse movimento ---");
-    //retorna um voluntario selecionado pelo id 
+    //retorna uma acao selecionada pelo id 
     Acao obj = Sistema.Acaolistar(id);
     // retorna uma lista com todas as inscrições feitas pelo voluntário
     foreach (var i in Sistema.InscricoesAcao(obj))
@@ -254,6 +260,23 @@ class Program{
       string nome = Sistema.VoluntarioEncontrarNome(i.GetidVoluntario());
       if (aux.ajuda == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()}");}
       else {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()}");}}
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+  }
+  public static void ListarApenasInscAcoes(){
+    Console.WriteLine("-------- Listar Ações ---------");
+
+    foreach (Acao obj in Sistema.ListarAcoes()){
+      if (obj.ajuda == false ) {Console.WriteLine($" Ação - {obj}" );}}
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+    }
+    public static void ListarApenasInscAjudas(){
+    Console.WriteLine("-------- Listar Ajudas ---------");
+    
+
+    foreach (Acao obj in Sistema.ListarAcoes()){
+      if (obj.ajuda == true ) {Console.WriteLine($" Ajuda - {obj}" );}}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
