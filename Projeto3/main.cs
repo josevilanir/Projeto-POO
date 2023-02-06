@@ -2,12 +2,20 @@ using System;
 using System.Globalization;
 using System.Collections.Generic;
 class Program{
+private static Voluntario VoluntarioLogin = null;
+  
   public static void Main(){
     Console.WriteLine("Bem vindo ao Help.io");
     int op = 0;
+    int perfil = 0;
     do {
       try{
-        op = Menu();
+          if (perfil == 0){
+            op == 0;
+            perfil = MenuUsuario();
+          }
+          if (perfil == 1 ){
+        op = MenuAdmin();
         switch(op){
         case 1 : CadastroAcao(); break;
         case 2 : ListarAcoes(); break;
@@ -24,17 +32,87 @@ class Program{
         case 13 : ListarApenasInscAcoes(); break;
         case 14 : ListarApenasInscAjudas(); break;
         case 15 : ExcluirInscricao(); break;
-        
+        case 99 : perfil = 0; break;
+          }
         }
+      if (perfil == 2 && VoluntarioLogin == null){
+        op = MenuVoluntarioLogin();
+        switch(op){
+        case 1 : VoluntarioLogin(); break;
+        case 99 : perfil = 0; break;
+        }
+      }
+      if (perfil == 2 && VoluntarioLogin != null){
+        op = MenuVoluntarioLogout();
+        switch(op){
+        case 1 : CadastroAcao(); break;
+        case 2 : ListarAcoes(); break;
+        case 3 : ListarApenasInscAcoes(); break;
+        case 4 : ListarApenasInscAjudas(); break;
+        case 5 : CadastroInscricao(); break;
+        case 6 : ListarIncricoesAcao(); break;
+        case 7 : ListarIncricoesVoluntario(); break;
+        case 99 : perfil = 0; break;
+        }
+      }  
       }
       catch (Exception erro){
         op = -1;
         Console.WriteLine("Erro: " + erro.Message);
       }
     } while (op != 0);
-    
   }
-  public static int Menu(){
+
+  public static VoluntarioLogin(){}
+  public static VoluntarioLogout(){}
+  
+  public static int MenuUsuario(){
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("1 - Entrar como Administrador");
+    Console.WriteLine("2 - Entrar como Voluntario");
+    Console.WriteLine("0 - Encerrar sistema");
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("Informe uma opcão: ");
+    int op = int.Parse(Console.ReadLine(""));
+    Console.WriteLine();
+    }
+
+    public static int MenuVoluntarioLogin(){
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("1 - Login");
+    Console.WriteLine("99 - Voltar ao menu anterior");
+    Console.WriteLine("0 - Encerrar sistema");
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("Informe uma opcão: ");
+    int op = int.Parse(Console.ReadLine(""));
+    Console.WriteLine();
+    }
+
+
+    vpublic static int MenuVoluntarioLogout(){
+    Console.WriteLine();
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("1 - Cadastrar um movimento");
+    Console.WriteLine("2 - Listar movimentos");
+    Console.WriteLine("3 - Listar apenas ajudas");
+    Console.WriteLine("4 - Listar apenas Ações");
+    Console.WriteLine("5 - Inscrever-se em movimento");
+    Console.WriteLine("6 - Ver inscrições em um movimento específico");
+    Console.WriteLine("7 - Ver inscrições de um voluntario especifico");
+    Console.WriteLine("99 - Logout"); 
+    Console.WriteLine("0 - Encerrar sistema");
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("Informe uma opcão: ");
+    int op = int.Parse(Console.ReadLine(""));
+    Console.WriteLine();
+    }
+
+
+
+  
+  public static int MenuAdmin(){
   Console.WriteLine();
   Console.WriteLine("---------- Escolha Uma opção! ----------");
   Console.WriteLine("01 - Cadastrar um movimento");
@@ -52,6 +130,7 @@ class Program{
   Console.WriteLine("13 - Listar apenas Ações"); 
   Console.WriteLine("14 - Listar apenas Ajudas");
   Console.WriteLine("15 - Excluir uma inscrição"); 
+  Console.WriteLine("99 - Voltar ao menu anterior");   
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");
   Console.Write("Opção: ");
@@ -87,6 +166,9 @@ class Program{
     if (ajuda == true)
       Console.WriteLine("-------Ajuda inserida com sucesso---------");
   }
+  
+  
+  
   public static void ListarAcoes(){
     Console.WriteLine("--------Listar os movimentos cadastrados---------");
     foreach (Acao obj in Sistema.ListarAcoes()){
