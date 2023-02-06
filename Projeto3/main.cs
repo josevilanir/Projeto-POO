@@ -78,6 +78,9 @@ class Program{
     int aux  = int.Parse(Console.ReadLine());
     ajuda = Acao.TransformarAjudaAcao(aux,ajuda);
     Acao obj = new Acao(id,data,nome,local,idVoluntario,ajuda,categoria);
+    int idInsc = Sistema.GetIdinsc();
+    Inscricao objinsc = new Inscricao(idInsc,idVoluntario,id);
+    Sistema.CadastroInscricao(objinsc);
     Sistema.CadastroAcao(obj);
     if (ajuda == false)
       Console.WriteLine("--------Ação inserida com sucesso---------");
@@ -123,10 +126,14 @@ class Program{
    }
   public static void ExcluirAcao(){
     Console.WriteLine("---------- Excluir um movimento ----------");
+    ListarAcoes();
     Console.Write("Informe o Id da ação a ser Excluida: ");
     int id = int.Parse(Console.ReadLine());
     
     DateTime data = DateTime.Now;
+    Acao objs = Sistema.AcaoEncontrar(id);
+    foreach (Inscricao aux in Sistema.InscricoesAcao(objs))      
+    {Sistema.InscricaoExcluir(aux);};
     Acao obj = new Acao(id);
     Sistema.AcaoExcluir(obj);
     Console.WriteLine("");
@@ -178,11 +185,14 @@ class Program{
    }
   public static void ExcluirVoluntario(){
     Console.WriteLine("---------- Excluir um Voluntário ----------");
+    ListarVoluntario();
     Console.Write("Informe o Id do voluntario a ser Excluido: ");
     int id = int.Parse(Console.ReadLine());
-   
     DateTime data = DateTime.Now;
     Voluntario obj = new Voluntario(id);
+    Voluntario objs = Sistema.VoluntarioEncontrar(id);
+    foreach (Inscricao aux in Sistema.InscricoesVoluntario(objs))      
+    {Sistema.InscricaoExcluir(aux);};
     Sistema.VoluntarioExcluir(obj);
     Console.WriteLine("");
     Console.WriteLine("------Voluntario excluido com sucesso--------");

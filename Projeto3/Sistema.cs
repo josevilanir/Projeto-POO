@@ -128,6 +128,12 @@ class Sistema{
     return null;
     
   }
+   // retona um voluntario com base no seu ID
+  public static Voluntario VoluntarioEncontrar(int id){
+    foreach (Voluntario obj in Voluntarios)
+      if (obj != null && obj.Getid() == id) return obj;
+    return null;
+  }
   // retona no nome do voluntario com base no seu ID
   public static string VoluntarioEncontrarNome(int id){
     foreach (Voluntario obj in Voluntarios)
