@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Collections.Generic;
 class Program{
-private static Voluntario VoluntarioLogin = null;
+private static Voluntario voluntarioLogin = null;
   
   public static void Main(){
     Console.WriteLine("Bem vindo ao Help.io");
@@ -11,7 +11,7 @@ private static Voluntario VoluntarioLogin = null;
     do {
       try{
           if (perfil == 0){
-            op == 0;
+            op = 0;
             perfil = MenuUsuario();
           }
           if (perfil == 1 ){
@@ -35,24 +35,24 @@ private static Voluntario VoluntarioLogin = null;
         case 99 : perfil = 0; break;
           }
         }
-      if (perfil == 2 && VoluntarioLogin == null){
+      if (perfil == 2 && voluntarioLogin == null){
         op = MenuVoluntarioLogin();
         switch(op){
         case 1 : VoluntarioLogin(); break;
         case 99 : perfil = 0; break;
         }
       }
-      if (perfil == 2 && VoluntarioLogin != null){
+      if (perfil == 2 && voluntarioLogin != null){
         op = MenuVoluntarioLogout();
         switch(op){
         case 1 : CadastroAcao(); break;
         case 2 : ListarAcoes(); break;
         case 3 : ListarApenasInscAcoes(); break;
         case 4 : ListarApenasInscAjudas(); break;
-        case 5 : CadastroInscricao(); break;
-        case 6 : ListarIncricoesAcao(); break;
-        case 7 : ListarIncricoesVoluntario(); break;
-        case 99 : perfil = 0; break;
+        case 5 : Inscreverse(); break;
+        case 6 : ListarMinhasIncricoes(); break;
+        case 7 : ListarIncricoesAcao(); break;
+        case 99 : VoluntarioLogout(); break;
         }
       }  
       }
@@ -63,8 +63,53 @@ private static Voluntario VoluntarioLogin = null;
     } while (op != 0);
   }
 
-  public static VoluntarioLogin(){}
-  public static VoluntarioLogout(){}
+  public static void  VoluntarioLogin(){
+  Console.WriteLine("----------------------------------------");
+   ListarVoluntario();
+  Console.Write("Informe seu id de cliente");
+  Console.WriteLine();
+  int id = int.Parse(Console.ReadLine());
+  voluntarioLogin = Sistema.VoluntarioEncontrar(id);
+  }
+  public static void VoluntarioLogout(){
+    Console.WriteLine("----- Logout do voluntario ------");
+    voluntarioLogin = null;
+  }
+  public static void Inscreverse(){
+    Console.WriteLine("---------- Inscrever-se em um movimento ----------");
+    ListarAcoes();
+    Console.Write("Informe o Id do movimento que deseja participar: ");
+    int idAcao = int.Parse(Console.ReadLine());
+    
+    int idVoluntario = voluntarioLogin.id;
+    int idInsc = Sistema.GetIdinsc();
+    
+    
+    Inscricao obj = new Inscricao(idInsc,idVoluntario,idAcao);
+    Sistema.CadastroInscricao(obj);
+    Console.WriteLine("--------Inscrição realizada com sucesso---------");
+  }
+  public static void ListarMinhasIncricoes(){
+    ListarVoluntario();
+    Console.WriteLine();
+    int id = voluntarioLogin.id;
+    Console.WriteLine("--- Suas incrições ---");
+    
+    
+    
+    //retorna um voluntario selecionado pelo id 
+    Voluntario obj = Sistema.Voluntariolistar(id);
+    // retorna uma lista com todas as inscrições feitas pelo voluntário
+    foreach (var i in Sistema.InscricoesVoluntario(obj))
+    {  Acao aux = Sistema.AcaoEncontrar(i.GetidAcao());
+      string nome = Sistema.VoluntarioEncontrarNome(i.GetidVoluntario());
+      if (aux.ajuda == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()}");}
+      else {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()}");}}
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+  }
+
+  
   
   public static int MenuUsuario(){
     Console.WriteLine();
@@ -74,8 +119,9 @@ private static Voluntario VoluntarioLogin = null;
     Console.WriteLine("0 - Encerrar sistema");
     Console.WriteLine("----------------------------------------");
     Console.WriteLine("Informe uma opcão: ");
-    int op = int.Parse(Console.ReadLine(""));
+    int op = int.Parse(Console.ReadLine());
     Console.WriteLine();
+    return op;
     }
 
     public static int MenuVoluntarioLogin(){
@@ -86,27 +132,31 @@ private static Voluntario VoluntarioLogin = null;
     Console.WriteLine("0 - Encerrar sistema");
     Console.WriteLine("----------------------------------------");
     Console.WriteLine("Informe uma opcão: ");
-    int op = int.Parse(Console.ReadLine(""));
+    int op = int.Parse(Console.ReadLine());
     Console.WriteLine();
+    return op; 
     }
 
 
-    vpublic static int MenuVoluntarioLogout(){
+    public static int MenuVoluntarioLogout(){
     Console.WriteLine();
+    Console.WriteLine("----------------------------------------");
+    Console.WriteLine("Seja bem vindo " + voluntarioLogin.nome);
     Console.WriteLine("----------------------------------------");
     Console.WriteLine("1 - Cadastrar um movimento");
     Console.WriteLine("2 - Listar movimentos");
-    Console.WriteLine("3 - Listar apenas ajudas");
-    Console.WriteLine("4 - Listar apenas Ações");
+    Console.WriteLine("3 - Listar apenas Ações");
+    Console.WriteLine("4 - Listar apenas Ajudas");
     Console.WriteLine("5 - Inscrever-se em movimento");
-    Console.WriteLine("6 - Ver inscrições em um movimento específico");
-    Console.WriteLine("7 - Ver inscrições de um voluntario especifico");
+    Console.WriteLine("6 - Ver Minhas inscrições");
+    Console.WriteLine("7 - Ver inscrições de um movimento específico");
     Console.WriteLine("99 - Logout"); 
     Console.WriteLine("0 - Encerrar sistema");
     Console.WriteLine("----------------------------------------");
     Console.WriteLine("Informe uma opcão: ");
-    int op = int.Parse(Console.ReadLine(""));
+    int op = int.Parse(Console.ReadLine());
     Console.WriteLine();
+    return op; 
     }
 
 

@@ -6,7 +6,7 @@ public class Voluntario{
   public int id;
   private int idUsuario;
   private int idade;
-  private string nome;
+  public string nome;
   private string ender;
   public Interesses interesses;
   public Voluntario(int id){
