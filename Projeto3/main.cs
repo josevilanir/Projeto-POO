@@ -45,13 +45,15 @@ private static Voluntario voluntarioLogin = null;
       if (perfil == 2 && voluntarioLogin != null){
         op = MenuVoluntarioLogout();
         switch(op){
-        case 1 : CadastroAcao(); break;
+        case 1 : CadastroAcaoVoluntario(); break;
         case 2 : ListarAcoes(); break;
         case 3 : ListarApenasInscAcoes(); break;
         case 4 : ListarApenasInscAjudas(); break;
         case 5 : Inscreverse(); break;
         case 6 : ListarMinhasIncricoes(); break;
         case 7 : ListarIncricoesAcao(); break;
+        case 8 : Desinscreverse(); break;
+        case 9 : AtualizarPerfil(); break;
         case 99 : VoluntarioLogout(); break;
         }
       }  
@@ -94,9 +96,6 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine();
     int id = voluntarioLogin.id;
     Console.WriteLine("--- Suas incrições ---");
-    
-    
-    
     //retorna um voluntario selecionado pelo id 
     Voluntario obj = Sistema.Voluntariolistar(id);
     // retorna uma lista com todas as inscrições feitas pelo voluntário
@@ -108,8 +107,67 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
-
+  public static void  Desinscreverse(){
+    Console.WriteLine("---------- Sair de um movimento ----------");
+    ListarMinhasIncricoes();
+    Console.Write("Informe o Id da inscrição que deseja excluir: ");
+    int idInsc = int.Parse(Console.ReadLine());
+    DateTime data = DateTime.Now;
+    Inscricao obj = new Inscricao(idInsc);
+    Sistema.InscricaoExcluir(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Inscriçao excluida com sucesso--------");
+  }
   
+
+  public static void CadastroAcaoVoluntario(){
+    Console.WriteLine("---------- Inserir um movimento ----------");
+    int id = Sistema.GetIdAcao();
+    Console.Write("Dê um nome para o movimento: ");
+    string nome = Console.ReadLine();
+    Console.Write("Informe o local onde o movimento acontecerá:");
+    string local = Console.ReadLine();
+    Console.Write("Informe a data em que o movimento acontecerá:");
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
+    int idVoluntario = voluntarioLogin.id;
+    Console.Write("Escolha uma categoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
+    int aux2  = int.Parse(Console.ReadLine());
+    Categorias categoria = (Categorias) aux2;
+    bool ajuda = false;
+    Console.Write("Você deseja tornar isso uma:\n Ação - 0\n Ajuda - 1\n");
+    int aux  = int.Parse(Console.ReadLine());
+    ajuda = Acao.TransformarAjudaAcao(aux,ajuda);
+    Acao obj = new Acao(id,data,nome,local,idVoluntario,ajuda,categoria);
+    int idInsc = Sistema.GetIdinsc();
+    Inscricao objinsc = new Inscricao(idInsc,idVoluntario,id);
+    Sistema.CadastroInscricao(objinsc);
+    Sistema.CadastroAcao(obj);
+    if (ajuda == false)
+      Console.WriteLine("--------Ação inserida com sucesso---------");
+    if (ajuda == true)
+      Console.WriteLine("-------Ajuda inserida com sucesso---------");
+  }
+  public static void AtualizarPerfil(){
+    Console.WriteLine("---------- Atualizar seu perfil de Voluntário ----------");
+    int id = voluntarioLogin.id;
+    int idUsuario = 1;
+    Console.Write("Informe um novo nome para o voluntário: ");
+    string nome = Console.ReadLine();
+    Console.Write("Informe um novo endereço do voluntário:");
+    string ender = Console.ReadLine();
+    Console.Write("Informe a nova idade do voluntário:");
+    int idade = int.Parse(Console.ReadLine());
+    Console.Write("Defina um novo interesse para o Voluntario: \n- Escola : 1 \n- Hospital : 2 \n- Asilo : 3 \n- Serviço_comunitario : 4\n");
+    int aux = int.Parse(Console.ReadLine()); // Variavel auxiliar para selecionar os interesses
+    Interesses interesses = (Interesses) aux;
+    Voluntario obj = new Voluntario(id,idUsuario,idade,nome,ender,interesses );
+    Sistema.VoluntarioAtualizar(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------Voluntario Atualizado com sucesso--------");
+  }
+
+
+
   
   public static int MenuUsuario(){
     Console.WriteLine();
@@ -141,7 +199,7 @@ private static Voluntario voluntarioLogin = null;
     public static int MenuVoluntarioLogout(){
     Console.WriteLine();
     Console.WriteLine("----------------------------------------");
-    Console.WriteLine("Seja bem vindo " + voluntarioLogin.nome);
+    Console.WriteLine("Seja bem vindo(a) " + voluntarioLogin.nome);
     Console.WriteLine("----------------------------------------");
     Console.WriteLine("1 - Cadastrar um movimento");
     Console.WriteLine("2 - Listar movimentos");
@@ -150,6 +208,8 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine("5 - Inscrever-se em movimento");
     Console.WriteLine("6 - Ver Minhas inscrições");
     Console.WriteLine("7 - Ver inscrições de um movimento específico");
+    Console.WriteLine("8 - Desinscrever-se de um movimento");
+    Console.WriteLine("9 - Atualizar meu perfil de voluntário");
     Console.WriteLine("99 - Logout"); 
     Console.WriteLine("0 - Encerrar sistema");
     Console.WriteLine("----------------------------------------");
@@ -307,7 +367,7 @@ private static Voluntario voluntarioLogin = null;
     string ender = Console.ReadLine();
     Console.Write("Informe a nova idade do voluntário:");
     int idade = int.Parse(Console.ReadLine());
-    Console.Write("Defina um novo interesse para o Voluntario:");
+    Console.Write("Defina um novo interesse para o Voluntario:\n- Escola : 1 \n- Hospital : 2 \n- Asilo : 3 \n- Serviço_comunitario : 4\n");
     int aux = int.Parse(Console.ReadLine()); // Variavel auxiliar para selecionar os interesses
     Interesses interesses = (Interesses) aux;
     Voluntario obj = new Voluntario(id,idUsuario,idade,nome,ender,interesses );
