@@ -183,10 +183,10 @@ private static Voluntario voluntarioLogin = null;
     Console.Write("Informe o id da inscrição em que deseja confirmar presença: ");
     int id = int.Parse(Console.ReadLine());
     Inscricao obj = Sistema.Inscricaolistar(id);
-    bool presenca = false;
+    
     Console.Write("Deseja confirmar sua presença no movimento ?\n 1 - Sim\n 2 - Não\n ");
     int i = int.Parse(Console.ReadLine());
-    presenca = Inscricao.ConfirmarPresenca(i, presenca);
+    obj.presenca = Inscricao.ConfirmarPresenca(i, obj.presenca);
     if (obj.presenca == true ){Console.WriteLine($"{obj} Presença confirmada");}
     else {Console.WriteLine($"{obj} Presença ainda não confirmada");};
   }
