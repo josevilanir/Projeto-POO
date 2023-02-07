@@ -99,7 +99,7 @@ private static Voluntario voluntarioLogin = null;
     ListarVoluntario();
     Console.WriteLine();
     int id = voluntarioLogin.id;
-    Console.WriteLine("--- Suas incrições ---");
+    Console.WriteLine("--------- Suas incrições ----------");
     //retorna um voluntario selecionado pelo id 
     Voluntario obj = Sistema.Voluntariolistar(id);
     // retorna uma lista com todas as inscrições feitas pelo voluntário
@@ -134,8 +134,9 @@ private static Voluntario voluntarioLogin = null;
     string nome = Console.ReadLine();
     Console.Write("Informe o local onde o movimento acontecerá:");
     string local = Console.ReadLine();
-    Console.Write("Informe a data em que o movimento acontecerá:");
-    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
+    Console.Write("Informe a data e o horário em que o movimento acontecerá no seguinte formato DD/MM/YYYY HH:mm:ss: ");
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm:ss",null);
+    
     int idVoluntario = voluntarioLogin.id;
     Console.Write("Escolha uma categoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
     int aux2  = int.Parse(Console.ReadLine());
@@ -187,8 +188,8 @@ private static Voluntario voluntarioLogin = null;
     Console.Write("Deseja confirmar sua presença no movimento ?\n 1 - Sim\n 2 - Não\n ");
     int i = int.Parse(Console.ReadLine());
     obj.presenca = Inscricao.ConfirmarPresenca(i, obj.presenca);
-    if (obj.presenca == true ){Console.WriteLine($"{obj} Presença confirmada");}
-    else {Console.WriteLine($"{obj} Presença ainda não confirmada");};
+    if (obj.presenca == true ){Console.WriteLine("------- Presença confirmada -------");}
+    else {Console.WriteLine(" ------ Presença ainda não confirmada -------- ");};
   }
 
   
@@ -279,8 +280,8 @@ private static Voluntario voluntarioLogin = null;
     string nome = Console.ReadLine();
     Console.Write("Informe o local onde o movimento acontecerá:");
     string local = Console.ReadLine();
-    Console.Write("Informe a data em que o movimento acontecerá:");
-    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
+    Console.Write("Informe a data e o horário em que o movimento acontecerá no seguinte formato DD/MM/YYYY HH:mm:ss: ");
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm:ss",null);
     Console.Write("Informe o seu id de Voluntario: ");
     int idVoluntario = int.Parse(Console.ReadLine());
     Console.Write("Escolha uma categoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
@@ -325,8 +326,8 @@ private static Voluntario voluntarioLogin = null;
     string nome = Console.ReadLine();
     Console.Write("Informe um novo local onde o movimento acontecerá:");
     string local = Console.ReadLine();
-    Console.Write("Informe a nova data em que o movimento acontecerá:");
-    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy",null);
+    Console.Write("Informe a data e o horário, respectivamente, em que o movimento acontecerá: ");
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm:ss",null);
     Console.Write("Informe o novo id de voluntario do dono do movimento:");
     int idVoluntario = int.Parse(Console.ReadLine());
     Console.Write("Escolha uma nova caregoria para esse movimento:\n Campanha - 1\n Ação Social -2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");

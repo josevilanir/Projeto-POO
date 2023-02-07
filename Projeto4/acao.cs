@@ -44,6 +44,7 @@ public class Acao{
   public void SetCategoria(Categorias umaCategoria){
     this.categoria = umaCategoria;
   }
+
   public int Getid(){
     return id;
   }
@@ -65,6 +66,7 @@ public class Acao{
   public Categorias GetCategoria(){
     return categoria;
   }
+  
   //Metodo que transforma a ação em ajuda baseado num inteiro informado pelo usuário
   public static bool TransformarAjudaAcao(int i, bool x){
   
@@ -72,6 +74,6 @@ public class Acao{
     return x;
   }
   public override string ToString(){
-   return $"{categoria} - ID: {id} - {nome} - Acontecera no local: {local} - Será no dia: {data:dd/MM/yyyy} ";
+   return $"{categoria} - ID: {id} - {nome} - Acontecera no local: {local} - Será no dia: {data:dd/MM/yyyy HH:mm:ss}";
   }
 }
