@@ -72,7 +72,7 @@ class Sistema{
     return Voluntarios;
    }
   
-  //metodo para retornar um id de um voluntario específico
+  //metodo para retornar um voluntario baseado num id 
   
   public static Voluntario Voluntariolistar(int id){
     foreach (Voluntario obj in Voluntarios)
@@ -193,5 +193,13 @@ class Sistema{
   public static void ComentarioExcluir(Comentario obj){
     Comentario aux = Comentariolistar(obj.Getid());
     if (aux != null) Comentarios.Remove(aux);
+    }
+  // retorna uma lista de todas os Comentarios feitos por um voluntario específico
+  public static List<Comentario> CometariosVoluntario(Voluntario voluntario){
+    List<Comentario> r = new List<Comentario>();
+    foreach(Comentario obj in Comentarios) 
+      if (obj.GetidVoluntario() == voluntario.Getid())
+        r.Add(obj);
+    return r;
     }
   }

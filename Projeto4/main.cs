@@ -32,6 +32,8 @@ private static Voluntario voluntarioLogin = null;
         case 13 : ListarApenasInscAcoes(); break;
         case 14 : ListarApenasInscAjudas(); break;
         case 15 : ExcluirInscricao(); break;
+        case 16 : ExcluirComentario(); break;
+        case 17 : EditarComentario(); break;
         case 99 : perfil = 0; break;
           }
         }
@@ -56,7 +58,7 @@ private static Voluntario voluntarioLogin = null;
         case 9 : AtualizarPerfil(); break;
         case 10 : ConfirmarPresenca(); break;
         case 11 : PublicarComentario(); break;
-        case 12 : ListarComentarios(); break;
+        case 12 : ListarMeusComentarios(); break;
         case 13 : EditarComentario(); break;
         case 14 : ExcluirComentario(); break;
         case 99 : VoluntarioLogout(); break;
@@ -194,7 +196,15 @@ private static Voluntario voluntarioLogin = null;
     if (obj.presenca == true ){Console.WriteLine("------- Presença confirmada -------");}
     else {Console.WriteLine(" ------ Presença ainda não confirmada -------- ");};
   }
-
+    public static void ListarMeusComentarios(){
+      int idVoluntario = voluntarioLogin.id;
+      Voluntario aux = Sistema.Voluntariolistar(idVoluntario);
+      Console.WriteLine("-------- Seus Comentarios ----------");
+      foreach (var i in Sistema.CometariosVoluntario(aux)){
+        Console.WriteLine($"{i}{voluntarioLogin.nome}");}
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
+    }
   
   public static int MenuUsuario(){
     Console.WriteLine();
@@ -239,7 +249,7 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine("9 - Atualizar meu perfil de voluntário");
     Console.WriteLine("10 - Confirmar presença em um movimento");
     Console.WriteLine("11 - Comentar em um movimento");
-    Console.WriteLine("12 - Listar comentarios");
+    Console.WriteLine("12 - Listar meus comentarios");
     Console.WriteLine("13 - Editar comentario");
     Console.WriteLine("14 - Excluir comentario");
     Console.WriteLine("99 - Logout"); 
@@ -272,6 +282,8 @@ private static Voluntario voluntarioLogin = null;
   Console.WriteLine("13 - Listar apenas Ações"); 
   Console.WriteLine("14 - Listar apenas Ajudas");
   Console.WriteLine("15 - Excluir uma inscrição"); 
+  Console.WriteLine("16 - Excluir um comentário");
+  Console.WriteLine("17 - Editar um comentário");
   Console.WriteLine("99 - Voltar ao menu anterior");   
   Console.WriteLine("00 - Finalizar Programa");
   Console.WriteLine("----------------------------------------");

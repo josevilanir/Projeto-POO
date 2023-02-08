@@ -38,7 +38,7 @@ public Comentario(int Id){
   public void SetidVoluntario(int umIdVoluntario){
     this.id = umIdVoluntario;
   }
-  public int  GetIdVoluntario(){
+  public int  GetidVoluntario(){
     return idVoluntario;
   }
   public void SetidAcao(int umidAcao){
