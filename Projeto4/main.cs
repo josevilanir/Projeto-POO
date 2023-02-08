@@ -57,6 +57,8 @@ private static Voluntario voluntarioLogin = null;
         case 10 : ConfirmarPresenca(); break;
         case 11 : PublicarComentario(); break;
         case 12 : ListarComentarios(); break;
+        case 13 : EditarComentario(); break;
+        case 14 : ExcluirComentario(); break;
         case 99 : VoluntarioLogout(); break;
         }
       }  
@@ -238,6 +240,8 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine("10 - Confirmar presença em um movimento");
     Console.WriteLine("11 - Comentar em um movimento");
     Console.WriteLine("12 - Listar comentarios");
+    Console.WriteLine("13 - Editar comentario");
+    Console.WriteLine("14 - Excluir comentario");
     Console.WriteLine("99 - Logout"); 
     Console.WriteLine("0 - Encerrar sistema");
     Console.WriteLine("----------------------------------------");
@@ -536,12 +540,36 @@ private static Voluntario voluntarioLogin = null;
       Console.WriteLine("------ Comentario Inserido com sucesso -------");
     }
   public static void ListarComentarios(){
-    Console.WriteLine("--------Listar voluntarios cadastrados---------");
+    Console.WriteLine("--------Listar comentarios feitos---------");
     foreach (Comentario obj in Sistema.ListarComentarios()){
       string nome = Sistema.VoluntarioEncontrarNome(obj.idVoluntario);
       Console.WriteLine($"{obj}{nome}");
       }
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
+  }
+  public static void EditarComentario(){
+    Console.WriteLine("-------- Editar Comentário ---------");
+    ListarComentarios();
+    Console.WriteLine("Informe o id do comentario que deseja editar: \n");
+    int id = int.Parse(Console.ReadLine());
+    Console.WriteLine("Digite seu novo comentário: \n");
+    string descricao = Console.ReadLine();
+    Comentario obj = new Comentario(id, descricao);
+    Sistema.ComentarioAtualizar(obj);
+    Console.WriteLine();
+    Console.WriteLine("-------- Comentario atualizado ---------");
+  }
+  public static void ExcluirComentario(){
+    Console.WriteLine("---------- Excluir um Comentario ----------");
+    ListarComentarios();
+    Console.Write("Informe o Id do Comentario que deseja excluir: ");
+    int id = int.Parse(Console.ReadLine());
+   
+    DateTime data = DateTime.Now;
+    Comentario obj = new Comentario(id);
+    Sistema.ComentarioExcluir(obj);
+    Console.WriteLine("");
+    Console.WriteLine("------ Comentario excluido com sucesso --------");
   }
 }

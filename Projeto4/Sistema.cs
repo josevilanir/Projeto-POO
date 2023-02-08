@@ -177,5 +177,21 @@ class Sistema{
     }
   public static List<Comentario> ListarComentarios(){
     return Comentarios;
-  }
+    }
+  public static Comentario Comentariolistar(int id){
+    foreach (Comentario obj in Comentarios)
+      if (obj.Getid() == id) return obj;
+    return null;
+    }
+  public static void ComentarioAtualizar(Comentario obj){
+    
+    Comentario aux = Comentariolistar(obj.Getid());
+    if (aux != null){
+    aux.SetDescricao(obj.GetDescricao());
+      }
+    }
+  public static void ComentarioExcluir(Comentario obj){
+    Comentario aux = Comentariolistar(obj.Getid());
+    if (aux != null) Comentarios.Remove(aux);
+    }
   }

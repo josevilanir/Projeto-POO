@@ -7,6 +7,16 @@ public class Comentario{
   public int idAcao;
   public string descricao;
 
+public Comentario(int Id){
+    this.id = Id;
+  }
+  public Comentario(int Id, string Descricao){
+    this.id = Id;
+    this.descricao = Descricao;
+  }
+  
+
+  
   public Comentario(int Id, string Descricao, int IdVoluntario,int IdAcao){
    this.id = Id;
    this.idVoluntario = IdVoluntario;
