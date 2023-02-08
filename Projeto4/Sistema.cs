@@ -8,6 +8,7 @@ class Sistema{
   private static int nInsc = 1;
   private static List<Voluntario> Voluntarios = new List<Voluntario>();
   private static List<Inscricao> Inscricoes = new List<Inscricao>();
+  private static List<Comentario> Comentarios = new List<Comentario>();
   public static void CadastroAcao(Acao obj){
     
     if (nAcao == Acoes.Length)
@@ -165,6 +166,16 @@ class Sistema{
       if (obj.GetidAcao() == acao.Getid())
         r.Add(obj);
     return r;
+    }
+  //metodos para a classe comentarios
+  public static void CadastroComentario(Comentario obj){
+    int id = 0;
+    foreach(Comentario aux in Comentarios)
+      if (aux.Getid() > id ) id = aux.Getid();
+    obj.id = id + 1;
+    Comentarios.Add(obj);
+    }
+  public static List<Comentario> ListarComentarios(){
+    return Comentarios;
   }
-  
   }

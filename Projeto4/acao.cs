@@ -74,6 +74,6 @@ public class Acao{
     return x;
   }
   public override string ToString(){
-   return $"{categoria} - ID: {id} - {nome} - Acontecera no local: {local} - Será no dia: {data:dd/MM/yyyy HH:mm:ss}";
+   return $"{categoria} - ID: {id} - {nome} - Acontecera no local: {local} - Será no dia: {data:dd/MM/yyyy HH:mm}";
   }
 }

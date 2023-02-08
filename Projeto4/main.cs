@@ -55,6 +55,8 @@ private static Voluntario voluntarioLogin = null;
         case 8 : Desinscreverse(); break;
         case 9 : AtualizarPerfil(); break;
         case 10 : ConfirmarPresenca(); break;
+        case 11 : PublicarComentario(); break;
+        case 12 : ListarComentarios(); break;
         case 99 : VoluntarioLogout(); break;
         }
       }  
@@ -96,7 +98,6 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine("--------Inscrição realizada com sucesso---------");
   }
   public static void ListarMinhasIncricoes(){
-    ListarVoluntario();
     Console.WriteLine();
     int id = voluntarioLogin.id;
     Console.WriteLine("--------- Suas incrições ----------");
@@ -135,7 +136,7 @@ private static Voluntario voluntarioLogin = null;
     Console.Write("Informe o local onde o movimento acontecerá:");
     string local = Console.ReadLine();
     Console.Write("Informe a data e o horário em que o movimento acontecerá no seguinte formato DD/MM/YYYY HH:mm:ss: ");
-    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm:ss",null);
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm",null);
     
     int idVoluntario = voluntarioLogin.id;
     Console.Write("Escolha uma categoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
@@ -235,6 +236,8 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine("8 - Desinscrever-se de um movimento");
     Console.WriteLine("9 - Atualizar meu perfil de voluntário");
     Console.WriteLine("10 - Confirmar presença em um movimento");
+    Console.WriteLine("11 - Comentar em um movimento");
+    Console.WriteLine("12 - Listar comentarios");
     Console.WriteLine("99 - Logout"); 
     Console.WriteLine("0 - Encerrar sistema");
     Console.WriteLine("----------------------------------------");
@@ -281,7 +284,7 @@ private static Voluntario voluntarioLogin = null;
     Console.Write("Informe o local onde o movimento acontecerá:");
     string local = Console.ReadLine();
     Console.Write("Informe a data e o horário em que o movimento acontecerá no seguinte formato DD/MM/YYYY HH:mm:ss: ");
-    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm:ss",null);
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm",null);
     Console.Write("Informe o seu id de Voluntario: ");
     int idVoluntario = int.Parse(Console.ReadLine());
     Console.Write("Escolha uma categoria para esse movimento:\n Campanha - 1\n Ação Social - 2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
@@ -327,7 +330,7 @@ private static Voluntario voluntarioLogin = null;
     Console.Write("Informe um novo local onde o movimento acontecerá:");
     string local = Console.ReadLine();
     Console.Write("Informe a data e o horário, respectivamente, em que o movimento acontecerá: ");
-    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm:ss",null);
+    DateTime data = DateTime.ParseExact(Console.ReadLine(),"dd/MM/yyyy HH:mm",null);
     Console.Write("Informe o novo id de voluntario do dono do movimento:");
     int idVoluntario = int.Parse(Console.ReadLine());
     Console.Write("Escolha uma nova caregoria para esse movimento:\n Campanha - 1\n Ação Social -2\n Oficina - 3\n Multirão - 4\n Outro - 5\n");
@@ -517,4 +520,28 @@ private static Voluntario voluntarioLogin = null;
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
     }
+  //metodos para classe comentário
+  public static void PublicarComentario(){
+      Console.WriteLine("-------- Adicionar Comentário ---------");
+      ListarAcoes();
+      Console.WriteLine("Informe o Id da açõa que deseja comentar ");
+      int idAcao = int.Parse(Console.ReadLine());
+      int idVoluntario = voluntarioLogin.id;
+      int id = 0;
+      Console.WriteLine("Insira seu comentario:  ");
+      string descricao = Console.ReadLine();
+      Comentario obj = new Comentario(id, descricao,idVoluntario,idAcao);
+      Sistema.CadastroComentario(obj);
+      Console.WriteLine();
+      Console.WriteLine("------ Comentario Inserido com sucesso -------");
+    }
+  public static void ListarComentarios(){
+    Console.WriteLine("--------Listar voluntarios cadastrados---------");
+    foreach (Comentario obj in Sistema.ListarComentarios()){
+      string nome = Sistema.VoluntarioEncontrarNome(obj.idVoluntario);
+      Console.WriteLine($"{obj}{nome}");
+      }
+    Console.WriteLine();
+    Console.WriteLine("--------------------------------------------");
   }
+}
