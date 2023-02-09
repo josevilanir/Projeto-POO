@@ -4,26 +4,19 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Text;
 
+class Arquivo<T> {
 
-public class Arquivo<T>{
-
-  public List<T> Abrir(string arquivo){
-    List<T> obj;
-    XmlSerializer xml = new XmlSerializer (typeof(List<T>));
-    StreamReader f = null;
-    try {
-      f = new StreamReader(arquivo);
-      obj = (List<T>) xml.Deserialize(f);
-    } catch(Exception) {
-      obj = new List<T>();
+  public T Abrir(string arquivo){
+    XmlSerializer xml = new XmlSerializer (typeof(T));
+    StreamReader f = new StreamReader(arquivo, Encoding.Default);
+      T obj = (T) xml.Deserialize(f);
+      f.Close();
+      return obj;
     }
-    f.Close();
-    return obj;
-  }
 
-  public void Salvar(string arquivo, List<T> obj){
-    XmlSerializer xml = new XmlSerializer (typeof(List<T>));
-    StreamWriter f = new StreamWriter(arquivo, false);
+  public void Salvar(string arquivo, T obj){
+    XmlSerializer xml = new XmlSerializer (typeof(T));
+    StreamWriter f = new StreamWriter(arquivo, false, Encoding.Default);
     xml.Serialize(f, obj);
     f.Close();
   }

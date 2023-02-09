@@ -6,7 +6,7 @@ using System.Text;
 
 
 class Sistema{
-  private static List<Acao> Acoes = new List<Acao>();
+  private static Acao[] Acoes = new Acao[2];
   private static List<Voluntario> Voluntarios = new List<Voluntario>();
   private static List<Inscricao> Inscricoes = new List<Inscricao>();
   private static List<Comentario> Comentarios = new List<Comentario>();
@@ -18,8 +18,7 @@ class Sistema{
   public static void ArquivosAbrir(){
     Arquivo<Acao[]> f1 = new Arquivo<Acao[]>();
     Acoes = f1.Abrir("./acoes.xml");
-    Console.WriteLine(f1);
-    nidAcao = Acoes.Length;
+    nAcao = Acoes.Length;
 
     Arquivo<List<Voluntario>> f2 = new Arquivo<List<Voluntario>>();
     Voluntarios = f2.Abrir("./voluntarios.xml");
@@ -37,23 +36,24 @@ class Sistema{
     f1.Salvar("./acoes.xml", Acaolistar());
 
     Arquivo<List<Voluntario>> f2 = new Arquivo<List<Voluntario>>();
-    f2.Salvar("./voluntarios.xml", ListarVoluntario());
+    f2.Salvar("./voluntarios.xml", Voluntarios) ;
  
     Arquivo<List<Inscricao>> f3 = new Arquivo<List<Inscricao>>();
-    f3.Salvar("./inscricao.xml", ListarInscricoes());
+    f3.Salvar("./inscricao.xml", Inscricoes );
 
     Arquivo<List<Comentario>> f4 = new Arquivo<List<Comentario>>();
-    f4.Salvar("./comentario.xml", ListarComentarios());    
+    f4.Salvar("./comentario.xml", Comentarios);    
   }
-
-  public static void CadastroAcao(Acao obj){
-    Acoes.Add(obj);
-  }
-  public static List<Acao> Acaolistar(){
-    return Acoes;
+public static void CadastroAcao(Acao obj){
+    
+    if (nAcao == Acoes.Length)
+      Array.Resize(ref Acoes,2*Acoes.Length);
+    Acoes[nAcao] = obj;
+    nAcao++;
+    nidAcao++;
     
   }
-  //metodo para retornar um obj com base no ID espicificará a especie a ser atualizada
+  //metodo para retornar um obj com base no ID espicificará a especi a ser atualizada
   public static Acao Acaolistar(int id){
     foreach (Acao obj in Acoes)
       if (obj != null && obj.Getid() == id) return obj;
