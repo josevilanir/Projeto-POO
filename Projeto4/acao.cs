@@ -11,6 +11,7 @@ public class Acao{
   private DateTime data;
   public bool ajuda;
   public Categorias categoria;
+  public Acao( ){}
   public Acao(int id){
     this.id = id;
     }

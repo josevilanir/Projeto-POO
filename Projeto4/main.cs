@@ -5,6 +5,14 @@ class Program{
 private static Voluntario voluntarioLogin = null;
   
   public static void Main(){
+    try{
+      Sistema.ArquivosAbrir();
+    }
+    catch (Exception erro){
+        Console.WriteLine(erro.Message);
+    }
+
+    
     Console.WriteLine("Bem vindo ao Help.io");
     int op = 0;
     int perfil = 0;
@@ -62,20 +70,27 @@ private static Voluntario voluntarioLogin = null;
         case 13 : EditarComentario(); break;
         case 14 : ExcluirComentario(); break;
         case 99 : VoluntarioLogout(); break;
-        }
-      }  
+          }
+        }  
       }
       catch (Exception erro){
         op = -1;
         Console.WriteLine("Erro: " + erro.Message);
       }
     } while (op != 0);
+    try {
+      Sistema.ArquivosSalvar();
+    }
+    catch (Exception erro){
+        Console.WriteLine(erro.Message);
+      }
   }
+  
 
   public static void  VoluntarioLogin(){
   Console.WriteLine("----------------------------------------");
    ListarVoluntario();
-  Console.Write("Informe seu id de cliente");
+  Console.Write("Informe seu id de voluntario");
   Console.WriteLine();
   int id = int.Parse(Console.ReadLine());
   voluntarioLogin = Sistema.VoluntarioEncontrar(id);
@@ -111,10 +126,10 @@ private static Voluntario voluntarioLogin = null;
     foreach (var i in Sistema.InscricoesVoluntario(obj))
     {  Acao aux = Sistema.AcaoEncontrar(i.GetidAcao());
       string nome = Sistema.VoluntarioEncontrarNome(i.GetidVoluntario());
-      if (aux.ajuda == false && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} Presença: AINDA NÃO CONFIRMADA ");}
-      if (aux.ajuda == false && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} Presença: CONFIRMADA ");}
-      if (aux.ajuda == true && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} Presença: NÃO CONFIRMADA  ");}
-      if (aux.ajuda == true && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} Presença: CONFIRMADA ");}
+      if (aux.ajuda == false && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} \nPresença: AINDA NÃO CONFIRMADA ");}
+      if (aux.ajuda == false && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} \nPresença: CONFIRMADA ");}
+      if (aux.ajuda == true && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} \nPresença: NÃO CONFIRMADA  ");}
+      if (aux.ajuda == true && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} \nPresença: CONFIRMADA ");}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
@@ -329,7 +344,7 @@ private static Voluntario voluntarioLogin = null;
   
   public static void ListarAcoes(){
     Console.WriteLine("--------Listar os movimentos cadastrados---------");
-    foreach (Acao obj in Sistema.ListarAcoes()){
+    foreach (Acao obj in Sistema.Acaolistar()){
       if (obj.ajuda == false ) {Console.WriteLine($" Ação - {obj}" );}
       else { Console.WriteLine($" Ajuda - {obj}" );}}
     Console.WriteLine();
@@ -482,10 +497,10 @@ private static Voluntario voluntarioLogin = null;
     foreach (var i in Sistema.InscricoesVoluntario(obj))
     {  Acao aux = Sistema.AcaoEncontrar(i.GetidAcao());
       string nome = Sistema.VoluntarioEncontrarNome(i.GetidVoluntario());
-      if (aux.ajuda == false && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} Presença: AINDA NÃO CONFIRMADA ");}
-      if (aux.ajuda == false && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} Presença: CONFIRMADA ");}
-      if (aux.ajuda == true && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} Presença: NÃO CONFIRMADA  ");}
-      if (aux.ajuda == true && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} Presença: CONFIRMADA ");}
+      if (aux.ajuda == false && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} \nPresença: AINDA NÃO CONFIRMADA ");}
+      if (aux.ajuda == false && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} \nPresença: CONFIRMADA ");}
+      if (aux.ajuda == true && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} \nPresença: NÃO CONFIRMADA  ");}
+      if (aux.ajuda == true && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} \nPresença: CONFIRMADA ");}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
@@ -513,10 +528,10 @@ private static Voluntario voluntarioLogin = null;
     foreach (var i in Sistema.InscricoesAcao(obj))
     {  Acao aux = Sistema.AcaoEncontrar(i.GetidAcao());
       string nome = Sistema.VoluntarioEncontrarNome(i.GetidVoluntario());
-      if (aux.ajuda == false && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} Presença: AINDA NÃO CONFIRMADA ");}
-      if (aux.ajuda == false && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} Presença: CONFIRMADA ");}
-      if (aux.ajuda == true && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} Presença: NÃO CONFIRMADA  ");}
-      if (aux.ajuda == true && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} Presença: CONFIRMADA ");}
+      if (aux.ajuda == false && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} \nPresença: AINDA NÃO CONFIRMADA ");}
+      if (aux.ajuda == false && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ação: {aux.GetNome()} \nPresença: CONFIRMADA ");}
+      if (aux.ajuda == true && i.presenca == false) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} \nPresença: NÃO CONFIRMADA  ");}
+      if (aux.ajuda == true && i.presenca == true) {Console.WriteLine($"{i}{nome} Foi inscrito na Ajuda: {aux.GetNome()} \nPresença: CONFIRMADA ");}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
   }
@@ -524,14 +539,14 @@ private static Voluntario voluntarioLogin = null;
   public static void ListarApenasInscAcoes(){
     Console.WriteLine("-------- Listar Ações ---------");
 
-    foreach (Acao obj in Sistema.ListarAcoes()){
+    foreach (Acao obj in Sistema.Acaolistar()){
       if (obj.ajuda == false ) {Console.WriteLine($" Ação - {obj}" );}}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");
     }
     public static void ListarApenasInscAjudas(){
     Console.WriteLine("-------- Listar Ajudas ---------");
-    foreach (Acao obj in Sistema.ListarAcoes()){
+    foreach (Acao obj in Sistema.Acaolistar()){
       if (obj.ajuda == true ) {Console.WriteLine($" Ajuda - {obj}" );}}
     Console.WriteLine();
     Console.WriteLine("--------------------------------------------");

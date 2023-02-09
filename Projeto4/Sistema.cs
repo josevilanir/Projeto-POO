@@ -1,27 +1,56 @@
 using System;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.IO;
+using System.Text;
+
 
 class Sistema{
-  private static Acao[] Acoes = new Acao[10];
-  private static int nAcao;
-  private static int nidAcao = 1; // Contador que define os ids das acoes
-  private static int nInsc = 1;
+  private static List<Acao> Acoes = new List<Acao>();
   private static List<Voluntario> Voluntarios = new List<Voluntario>();
   private static List<Inscricao> Inscricoes = new List<Inscricao>();
   private static List<Comentario> Comentarios = new List<Comentario>();
-  public static void CadastroAcao(Acao obj){
-    
-    if (nAcao == Acoes.Length)
-      Array.Resize(ref Acoes,2*Acoes.Length);
-    Acoes[nAcao] = obj;
-    nAcao++;
-    nidAcao++;
-    
+  private static int nAcao;
+  private static int nidAcao = 1; // Contador que define os ids das acoes
+  private static int nInsc = 1; // Contador que define os ids das inscrições
+
+
+  public static void ArquivosAbrir(){
+    Arquivo<Acao[]> f1 = new Arquivo<Acao[]>();
+    Acoes = f1.Abrir("./acoes.xml");
+    Console.WriteLine(f1);
+    nidAcao = Acoes.Length;
+
+    Arquivo<List<Voluntario>> f2 = new Arquivo<List<Voluntario>>();
+    Voluntarios = f2.Abrir("./voluntarios.xml");
+ 
+    Arquivo<List<Inscricao>> f3 = new Arquivo<List<Inscricao>>();
+    Inscricoes = f3.Abrir("./inscricao.xml");
+    nInsc = Inscricoes.Count;
+
+    Arquivo<List<Comentario>> f4 = new Arquivo<List<Comentario>>();
+    Comentarios = f4.Abrir("./comentario.xml");
   }
-  public static Acao[] ListarAcoes(){
-    Acao[] aux  = new Acao[nAcao];
-    Array.Copy(Acoes, aux, nAcao);
-    return aux;
+  
+  public static void ArquivosSalvar(){
+    Arquivo<Acao[]> f1 = new Arquivo<Acao[]>();
+    f1.Salvar("./acoes.xml", Acaolistar());
+
+    Arquivo<List<Voluntario>> f2 = new Arquivo<List<Voluntario>>();
+    f2.Salvar("./voluntarios.xml", ListarVoluntario());
+ 
+    Arquivo<List<Inscricao>> f3 = new Arquivo<List<Inscricao>>();
+    f3.Salvar("./inscricao.xml", ListarInscricoes());
+
+    Arquivo<List<Comentario>> f4 = new Arquivo<List<Comentario>>();
+    f4.Salvar("./comentario.xml", ListarComentarios());    
+  }
+
+  public static void CadastroAcao(Acao obj){
+    Acoes.Add(obj);
+  }
+  public static List<Acao> Acaolistar(){
+    return Acoes;
     
   }
   //metodo para retornar um obj com base no ID espicificará a especie a ser atualizada
